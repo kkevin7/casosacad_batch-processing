@@ -35,7 +35,7 @@
                 <version>2.8</version>
                 <configuration>
                     <version>6</version>
-                    <outputDirectory>payara</outputDirectory>
+                    <outputDirectory>com.uesocc.mvnee.casosAcad/payara</outputDirectory>
                     <defaultLibBundleDir>lib</defaultLibBundleDir>
                 </configuration>
             </plugin>
