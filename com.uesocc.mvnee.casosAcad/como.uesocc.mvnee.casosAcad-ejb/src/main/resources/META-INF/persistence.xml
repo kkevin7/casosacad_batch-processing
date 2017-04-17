@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<persistence version="2.1" xmlns="http://xmlns.jcp.org/xml/ns/persistence" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/persistence http://xmlns.jcp.org/xml/ns/persistence/persistence_2_1.xsd">
+  <persistence-unit name="com.uesocc.casosAcad_como.uesocc.mvnee.casosAcad-ejb_ejb_1.0-SNAPSHOTPU" transaction-type="JTA">
+    <jta-data-source>ues_jndi_casosAcad</jta-data-source>
+    <class>com.uesocc.entities.casosAcad.Caso</class>
+    <class>com.uesocc.entities.casosAcad.CasoDetalle</class>
+    <class>com.uesocc.entities.casosAcad.CasoDetalleRequisito</class>
+    <class>com.uesocc.entities.casosAcad.DbCdra</class>
+    <class>com.uesocc.entities.casosAcad.Paso</class>
+    <class>com.uesocc.entities.casosAcad.PasoRequisito</class>
+    <class>com.uesocc.entities.casosAcad.Proceso</class>
+    <class>com.uesocc.entities.casosAcad.ProcesoDetalle</class>
+    <class>com.uesocc.entities.casosAcad.Requisito</class>
+    <class>com.uesocc.entities.casosAcad.Solicitudes</class>
+    <class>com.uesocc.entities.casosAcad.TipoPaso</class>
+    <class>com.uesocc.entities.casosAcad.TipoRequisito</class>
+    <exclude-unlisted-classes>true</exclude-unlisted-classes>
+    <properties/>
+  </persistence-unit>
+</persistence>

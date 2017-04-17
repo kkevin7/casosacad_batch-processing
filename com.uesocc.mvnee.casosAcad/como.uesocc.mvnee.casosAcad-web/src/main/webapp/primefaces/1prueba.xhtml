@@ -1,0 +1,86 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:te="http://xmlns.jcp.org/jsf/composite/templates"
+      >
+    <h:head>
+        <title>TipoRequisito Prime</title>
+        <link href="../resources/css/stylePrime.css" rel="stylesheet" type="text/css" media="all" /> 
+    </h:head>
+    <h:body>
+        
+        <f:view>
+            <h:form>
+                <h1><h:outputText value="Tipo Requisito"/></h1>
+                
+                <p:dataTable value="#{frmTipoRequisito.obtenerTodos()}" var="item" class="tableclass"
+                             rows="10"
+                             paginator="true" paginatorPosition="bottom"
+                             paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                             rowsPerPageTemplate="5,10,15"
+                             >
+                    <p:column filterBy="#{item.idTipoRequisito}" headerText="Id" 
+                              footerText="contains" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Id"/>
+                        </f:facet>
+                        <h:outputText value="#{item.idTipoRequisito}"/>
+                    </p:column>
+                    <p:column filterBy="#{item.nombre}" headerText="Nombre" 
+                              footerText="contains" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Nombre"/>
+                        </f:facet>
+                        <h:outputText value="#{item.nombre}"/>
+                    </p:column>
+                    <p:column filterBy="#{item.activo? 'Activo':'Inactivo'}" headerText="Id" 
+                              footerText="contains" filterMatchMode="contains">
+                        <f:facet name="header">
+                            <h:outputText value="Estado"/>
+                        </f:facet>
+                        <h:outputText value="#{item.activo? 'Activo':'Inactivo'}"/>
+                    </p:column>
+                    <p:column>
+                        <f:facet name="header">
+                            <h:outputText value="Observaciones"/>
+                        </f:facet>
+                        <h:outputText value="#{item.observaciones}"/>
+                    </p:column>
+                </p:dataTable>
+            </h:form>
+        </f:view>
+
+        <f:view>
+            <h:form>
+                
+                <p:fieldset legend="Datos" class="contdatos">
+                    <p:panelGrid columns="2">
+                        <p:outputLabel value="IdTipoRequisito:" for="idTipoRequisito" />
+                        <p:inputText id="idTipoRequisito" value="#{frmTipoRequisito.tipoRequisito.idTipoRequisito}" title="IdTipoRequisito" required="true" requiredMessage="The IdTipoRequisito field is required."/>
+                        <p:outputLabel value="Nombre:" for="nombre" />
+                        <p:inputText id="nombre" value="#{frmTipoRequisito.tipoRequisito.nombre}" title="Nombre" required="true" requiredMessage="The Nombre field is required."/>
+                        <p:outputLabel value="Estado:" for="activo" />
+                        <p:selectBooleanCheckbox id="activo" value="#{frmTipoRequisito.tipoRequisito.activo}"/>
+                        <p:outputLabel value="Observaciones:" for="observaciones" />
+                        <p:inputTextarea id="observaciones" value="#{frmTipoRequisito.tipoRequisito.observaciones}" title="Observaciones" required="true" requiredMessage="The Observaciones field is required."/>
+                    </p:panelGrid>
+
+                </p:fieldset>
+            </h:form>
+            <h:messages id="msgs"/>
+        </f:view>
+        
+        <h:form>
+            <p:commandButton>
+                
+            </p:commandButton>
+            
+        </h:form>
+
+        
+    </h:body>
+</html>
+

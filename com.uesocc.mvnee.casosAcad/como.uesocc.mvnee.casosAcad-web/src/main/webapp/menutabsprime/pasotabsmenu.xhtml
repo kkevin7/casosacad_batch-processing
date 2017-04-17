@@ -1,0 +1,118 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:co="http://xmlns.jcp.org/jsf/composite/composite"
+
+      >
+    <h:head>
+        <title>Paso Tabsmenu</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="../templates/templatetabsmenu.xhtml">
+            <ui:define name="content" >  
+
+                <f:view>
+
+                    <h:form id="frm-paso">
+                        <h1 class="titulo" ><h:outputText value="Paso"/></h1>
+                        <p:dataTable value="#{frmPasoPrime.modelo}" id="tb-paso" class="tableclass "
+                                     var="item" 
+                                     lazy="true"
+                                     paginator="true"
+                                     rows="5"
+                                     rowsPerPageTemplate="5,10,15"
+                                     paginatorPosition="bottom"
+                                     selectionMode="single"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     
+                                     >
+                            <p:ajax update=":frm-crud:tabs:cont1" event="rowSelect" listener="#{frmPasoPrime.cambiarSeleccion}"/> 
+                            <p:column filterBy="#{item.idPaso}" headerText="ID" class="colum-id">
+                                <f:facet name="header">
+                                    <h:outputText value="Id"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idPaso}"/>
+                            </p:column >
+                            <p:column filterBy="#{item.idTipoPaso}" headerText="Paso" >
+                                <f:facet name="header">
+                                    <h:outputText value="Paso"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idTipoPaso.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.descripcion}" headerText="Descripcion">
+                                <f:facet name="header">
+                                    <h:outputText value="Descripcion"/>
+                                </f:facet>
+                                <h:outputText value="#{item.descripcion}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.tiempo}" headerText="Tiempo" >
+                                <f:facet name="header">
+                                    <h:outputText value="Tiempo"/>
+                                </f:facet>
+                                <h:outputText value="#{item.tiempo}"/>
+                            </p:column> 
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+
+
+                <h:form id="frm-crud" >
+
+                    <p:growl id="msgs" showDetail="true" />
+
+                    <p:tabView id="tabs" class="paneltabs">
+                        <p:tab title="Pasos">
+
+                            <p:fieldset id="cont1" legend="Datos" class="contdatos">
+                                <h1><h:outputText value="Create/Edit"/></h1>
+                                <p:panelGrid id="panel-crud" columns="2">
+                                    <p:outputLabel value="IdPaso:" for="idPaso" />
+                                    <p:inputText id="idPaso" value="#{frmPasoPrime.registro.idPaso}" title="IdPaso" disabled="true" readonly="true" />
+                                    <p:outputLabel value="Descripcion:" for="descripcion" />
+                                    <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{frmPasoPrime.registro.descripcion}" title="Descripcion" />
+                                    <p:outputLabel value="Tiempo:" for="tiempo" />
+                                    <p:inputText id="tiempo" value="#{frmPasoPrime.registro.tiempo}" title="Tiempo" />
+                                    <p:outputLabel value="Tipo Paso:" for="idTipoPaso" />
+                                    <p:selectOneMenu id="idTipoPaso" value="#{frmPasoPrime.registro.idTipoPaso}" converter="omnifaces.SelectItemsConverter">
+
+                                        <f:selectItems value="#{frmTipoPasoPrime.obtenerTodos()}" var="c" itemLabel="#{c.nombre}" itemValue="#{c}"/>
+                                    </p:selectOneMenu>
+                                </p:panelGrid>
+                                <co:crudBtns clase="#{frmPasoPrime}" update=":frm-paso:tb-paso :frm-crud"/> 
+                                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                            </p:fieldset>
+
+                        </p:tab>
+                        <p:tab title="Tipo Pasos">
+
+                            <p:fieldset legend="Datos" class="contdatos">
+                                <h1><h:outputText value="Create"/></h1>
+                                <p:panelGrid columns="2" id="panel-crud2">
+                                    <p:outputLabel value="IdTipoPaso:" for="idTipoPaso2" />
+                                    <p:inputText id="idTipoPaso2" value="#{frmTipoPasoPrime.registro.idTipoPaso}" disabled="true" readonly="true" />
+                                    <p:outputLabel value="Nombre:" for="nombre2" />
+                                    <p:inputText id="nombre2" value="#{frmTipoPasoPrime.registro.nombre}" title="Nombre" />
+                                    <p:outputLabel value="Estado:" for="activo2" />
+                                    <p:selectBooleanCheckbox id="activo2" value="#{frmTipoPasoPrime.registro.activo}"/>
+                                    <p:outputLabel value="Descripcion:" for="descripcion2" />
+                                    <p:inputTextarea rows="4" cols="30" id="descripcion2" value="#{frmTipoPasoPrime.registro.descripcion}" />
+                                </p:panelGrid>
+                                <co:crudBtns clase="#{frmTipoPasoPrime}" update=":frm-paso:tb-paso :frm-crud"/>
+                            </p:fieldset>
+
+                        </p:tab>
+                    </p:tabView>
+                </h:form>
+
+
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>
+

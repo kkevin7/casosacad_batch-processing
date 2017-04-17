@@ -1,0 +1,51 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="form" required="true"/>
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <h1 class="titulofrm"><h:outputText value="Tipo Paso"/></h1>
+        <h:dataTable class="filllistado" value="#{cc.attrs.form.obtenerTodos()}" var="item">
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Id"/>
+                </f:facet>
+                <h:outputText value="#{item.idTipoPaso}"   />
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Nombre"/>
+                </f:facet>
+                <h:outputText value="#{item.nombre}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Estado"/>
+                </f:facet>
+                <h:outputText value="#{item.activo?'Activo':'Inactivo'}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value="Descripcion"/>
+                </f:facet>
+                <h:outputText value="#{item.descripcion}"/>
+            </h:column>
+            <h:column>
+                <f:facet name="header">
+                    <h:outputText value=""></h:outputText>
+                </f:facet>
+                <h:commandButton  styleClass='btn-editar' value="editar" onclick="btneditar()" action="#{cc.attrs.form.obtener(item)}">
+                    <f:ajax execute="listado" render="menu:frmcrud"/>                         
+                </h:commandButton>
+            </h:column>
+        </h:dataTable>
+    </cc:implementation>
+</html>

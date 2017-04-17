@@ -1,0 +1,93 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:co="http://xmlns.jcp.org/jsf/composite/composite"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>TipoRequisito Prime</title>
+    </h:head>
+    <h:body>
+
+        <ui:composition template="../templates/templateprime.xhtml">
+            <ui:define name="content" >
+
+                <f:view>
+
+                    <h:form id="frm-tr">
+                        <h1 class="titulo" ><h:outputText value="Tipo Requisito"/><i class="fa fa-check" aria-hidden="true"></i></h1>
+                        <p:dataTable value="#{frmTipoRequisitoPrime.modelo}" id="tb-tiporequisito" class="tableclass"
+                                     var="item" 
+                                     lazy="true"
+                                     paginator="true"
+                                     rows="5"
+                                     rowsPerPageTemplate="5,10,15"
+                                     paginatorPosition="bottom"
+                                     selectionMode="single"                            
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     emptyMessage="Sin Considencia"
+                                     widgetVar="dataTable"
+                                     >
+                            <p:ajax update=":frm-crud" event="rowSelect" listener="#{frmTipoRequisitoPrime.cambiarSeleccion}"/>
+                            <p:column filterBy="#{item.idTipoRequisito}" headerText="ID" >
+                                <f:facet name="header">
+                                    <h:outputText value="ID"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idTipoRequisito}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.nombre}" headerText="Nombre" >
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.activo}" headerText="Estado">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('dataTable').filter()">
+                                        <f:selectItem itemLabel="Todos" itemValue="" />
+                                        <f:selectItem itemLabel="Activo" itemValue="1" />
+                                        <f:selectItem itemLabel="Inactivo" itemValue="0" />
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="#{item.activo? 'Activo':'Inactivo'}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.observaciones}" headerText="Descripcion" >
+                                <f:facet name="header">
+                                    <h:outputText value="Observaciones"/>
+                                </f:facet>
+                                <h:outputText value="#{item.observaciones}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+
+                <f:view>
+                    <h:form id="frm-crud">
+
+                        <p:growl id="msgs" showDetail="true" />
+
+                        <p:fieldset legend="Datos" class="contdatos">
+                            <h1><h:outputText value="Create/Edit"/></h1>
+                            <p:panelGrid id="panel-crud" columns="2">
+                                <p:outputLabel id="idpanel" value="IdTipoRequisito:" for="idTipoRequisito" />
+                                <p:inputText id="idTipoRequisito" value="#{frmTipoRequisitoPrime.registro.idTipoRequisito}" disabled="true" readonly="true" />
+                                <p:outputLabel value="Nombre:" for="nombre" />
+                                <p:inputText id="nombre" value="#{frmTipoRequisitoPrime.registro.nombre}" title="Nombre" />
+                                <p:outputLabel value="Estado:" for="activo" />
+                                <p:selectBooleanCheckbox id="activo" value="#{frmTipoRequisitoPrime.registro.activo}"/>
+                                <p:outputLabel value="Observaciones:" for="observaciones" />
+                                <p:inputTextarea id="observaciones" value="#{frmTipoRequisitoPrime.registro.observaciones}" title="Observaciones"/>
+                            </p:panelGrid>
+                            <co:crudBtns clase="#{frmTipoRequisitoPrime}" update=":frm-tr:tb-tiporequisito :frm-crud"/>
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                        </p:fieldset>
+                    </h:form>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+
+    </h:body>
+</html>
+

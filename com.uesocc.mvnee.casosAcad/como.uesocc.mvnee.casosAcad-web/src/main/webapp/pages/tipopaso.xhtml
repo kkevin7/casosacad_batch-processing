@@ -1,0 +1,97 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:te="http://xmlns.jcp.org/jsf/composite/templates">
+
+    <body>
+        <ui:composition template="./genericTemplate.xhtml">
+
+            <ui:define name="content" class="alpha">
+                <f:view>
+                    <div id="btnCrearContainer">
+                        <h:form id="btncrear">
+                            <h3>Insertar</h3>
+                            <h:commandButton  image="/resources/images/addbtn.png" onclick="mostrarformulario()" action="#{frmTipoPaso.nuevo()}">
+                                <f:ajax execute="@this" render="menu:frmcrud"/>
+                            </h:commandButton>
+                        </h:form>
+                    </div>
+
+
+                    <h:form id="listado" >
+                        <h1 class="titulofrm"><h:outputText value="Tipo Paso"/></h1>
+                        <h:dataTable class="filllistado" value="#{frmTipoPaso.obtenerTodos()}" var="item">
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Id"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idTipoPaso}"   />
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nombre}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Estado"/>
+                                </f:facet>
+                                <h:outputText value="#{item.activo?'Activo':'Inactivo'}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Descripcion"/>
+                                </f:facet>
+                                <h:outputText value="#{item.descripcion}"/>
+                            </h:column>
+                            <h:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Opciones"></h:outputText>
+                                </f:facet>
+                                <h:commandButton  class='btn-editar' value="editar" onclick="btneditar()" action="#{frmTipoPaso.obtener(item)}">
+                                    <f:ajax execute="listado" render="menu:frmcrud"/>                         
+                                </h:commandButton>
+                            </h:column>
+                        </h:dataTable>
+                    </h:form>
+                </f:view>
+
+                <f:view>
+                    <div id="menucontainer" class='hiden'>
+                        <button class="btn-cerrar" onclick="cerrar()">
+                            <img src="../resources/images/close.png"/>
+                        </button>
+
+                        <h:form id="menu" class="alpha">
+                            <h1 class="titulofrmmenu"><h:outputText value="Opciones"/></h1>
+                            <h:panelGrid id="frmcrud" columns="2">
+                                <h:outputLabel value="IdTipoPaso:" for="idTipoPaso" />
+                                <h:inputText id="idTipoPaso" value="#{frmTipoPaso.tipoPaso.idTipoPaso}" readonly="true" title="IdTipoPaso"/>
+                                <h:outputLabel value="Nombre:" for="nombre" />
+                                <h:inputText id="nombre" value="#{frmTipoPaso.tipoPaso.nombre}" title="Nombre" />
+
+                                <h:outputLabel value="Activo:" for="activo"/>
+                                <h:selectBooleanCheckbox value="#{frmTipoPaso.tipoPaso.activo}"/>
+                                <h:outputLabel value="Descripcion:" for="descripcion" />
+                                <h:inputTextarea rows="4" cols="30" id="descripcion" value="#{frmTipoPaso.tipoPaso.descripcion}"   title="Descripcion"  />
+
+                            </h:panelGrid  >
+                            <h:panelGrid id="crudbtns" columns="2">
+                                <te:crudBtns id="ccbtn" clase="#{frmTipoPaso}"> 
+                                    <f:ajax event="press" execute=":menu" render=":listado :menu:frmcrud msgs"/> 
+                                </te:crudBtns>
+                            </h:panelGrid>
+                        </h:form>
+                        <h:messages id="msgs"/>
+
+                    </div>
+                </f:view>
+            </ui:define>
+        </ui:composition>
+
+    </body>
+</html>

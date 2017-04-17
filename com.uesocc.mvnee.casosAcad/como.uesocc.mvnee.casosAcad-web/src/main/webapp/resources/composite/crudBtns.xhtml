@@ -1,0 +1,39 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="clase" required="true"/>
+        <cc:attribute name="update" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:commandButton value="Nuevo registro" icon="fa fa-fw fa-file-text-o" 
+                         ajax="true"
+                         update="#{cc.attrs.update}"
+                         actionListener="#{cc.attrs.clase.nuevo()}"
+                         />
+        <p:commandButton value="Crear" icon="fa fa-fw fa-floppy-o"
+                         validateClient="true" ajax="true"
+                         rendered="#{cc.attrs.clase.btnadd}"
+                         update="#{cc.attrs.update}"
+                         actionListener="#{cc.attrs.clase.crearRegistro()}"
+                         />
+        <p:commandButton value="Eliminar" icon="fa fa-fw fa-close"
+                         validateClient="true" ajax="true"
+                         update="#{cc.attrs.update}"
+                          rendered="#{cc.attrs.clase.btnremove}"
+                         actionListener="#{cc.attrs.clase.eliminar()}"
+                         />    
+        <p:commandButton value="Editar" icon="fa fa-fw fa-edit"
+                         validateClient="true" ajax="true"
+                         update="#{cc.attrs.update}"
+                          rendered="#{cc.attrs.clase.btnedit}"
+                         actionListener="#{cc.attrs.clase.editarRegistro()}"
+                         />
+    </cc:implementation>
+</html>

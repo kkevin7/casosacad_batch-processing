@@ -1,0 +1,110 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:co="http://xmlns.jcp.org/jsf/composite/composite"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Solicitudes</title>
+    </h:head>
+    <h:body>
+        
+        <ui:composition template="../templates/templateprime.xhtml">
+            <ui:define name="content">
+        
+                <f:view>
+
+
+                    <h:form id="frm-solicitudes">
+                        <h1 class="titulo" ><h:outputText value="Solicitudes"/></h1>
+                        <p:dataTable value="#{frmSolicitudesPrime.modelo}" id="tb-solicitudes" class="tableclass"
+                                     var="item" 
+                                     lazy="true"
+                                     paginator="true"
+                                     rows="5"
+                                     rowsPerPageTemplate="5,10,15"
+                                     paginatorPosition="bottom"
+                                     selectionMode="single"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     
+                                     >
+                             <p:ajax update=":frm-crud" event="rowSelect" listener="#{frmSolicitudesPrime.cambiarSeleccion}"/>
+                             <p:column filterBy="#{item.idSolicitud}" headerText="ID" class="colum-id">
+                                <f:facet name="header">
+                                    <h:outputText value="IdSolicitud"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idSolicitud}"/>
+                            </p:column>
+                             <p:column filterBy="#{item.carnet}" headerText="Carnet">
+                                <f:facet name="header">
+                                    <h:outputText value="Carnet"/>
+                                </f:facet>
+                                <h:outputText value="#{item.carnet}"/>
+                            </p:column>
+                             <p:column filterBy="#{item.nit}" headerText="Nit">
+                                <f:facet name="header">
+                                    <h:outputText value="Nit"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nit}"/>
+                            </p:column>
+                             <p:column filterBy="#{item.fechaRecibida}" headerText="FechaRecibida">
+                                <f:facet name="header">
+                                    <h:outputText value="FechaRecibida"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fechaRecibida}">
+                                    <f:convertDateTime pattern="yyyy/MM/dd" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column filterBy="#{item.usuario}" headerText="Usuario">
+                                <f:facet name="header">
+                                    <h:outputText value="Usuario"/>
+                                </f:facet>
+                                <h:outputText value="#{item.usuario}"/>
+                            </p:column>
+                             <p:column filterBy="#{item.descripcionSolicitud}" headerText="Descripcion">
+                                <f:facet name="header">
+                                    <h:outputText value="Descripcion"/>
+                                </f:facet>
+                                <h:outputText value="#{item.descripcionSolicitud}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+
+                <f:view>
+                        <h:form id="frm-crud" >
+                        <p:growl id="msgs" showDetail="true" />
+                        
+                        <p:fieldset legend="Datos" class="contdatos">
+                        <h1><h:outputText value="Create/Edit"/></h1>
+                        <p:panelGrid id="panel-crud" columns="2">
+                            <p:outputLabel value="IdSolicitud:" for="idSolicitud" />
+                            <p:inputText id="idSolicitud" value="#{frmSolicitudesPrime.registro.idSolicitud}" title="IdSolicitud" disabled="true" readonly="true"/>
+                            <p:outputLabel value="Carnet:" for="carnet" />
+                            <p:inputText id="carnet" value="#{frmSolicitudesPrime.registro.carnet}" title="Carnet" />
+                            <p:outputLabel value="Nit:" for="nit" />
+                            <p:inputText id="nit" value="#{frmSolicitudesPrime.registro.nit}" title="Nit" />
+                            <p:outputLabel value="FechaRecibida:" for="fechaRecibida" />
+                            <p:inputText id="fechaRecibida" value="#{frmSolicitudesPrime.registro.fechaRecibida}" title="FechaRecibida">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </p:inputText>
+                            <p:outputLabel value="Usuario:" for="usuario" />
+                            <p:inputText id="usuario" value="#{frmSolicitudesPrime.registro.usuario}" title="Usuario" />
+                            <p:outputLabel value="Descripcion:" for="descripcionSolicitud" />
+                            <p:inputTextarea rows="4" cols="30" id="descripcionSolicitud" value="#{frmSolicitudesPrime.registro.descripcionSolicitud}" title="DescripcionSolicitud" />
+                        </p:panelGrid>
+                        <co:crudBtns clase="#{frmSolicitudesPrime}" update=":frm-solicitudes:tb-solicitudes :frm-crud"/>
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                        </p:fieldset>
+                    </h:form>
+                </f:view>
+
+                
+        </ui:define>
+        </ui:composition>
+        
+    </h:body>
+</html>
+

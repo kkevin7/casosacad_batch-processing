@@ -1,0 +1,347 @@
+body
+{ 
+    margin: 0;
+    padding: 0;
+    background: #eeefff; 
+}
+
+.titulo{
+    color: #555;
+    text-align: center;
+    font-family: 'Lato', sans-serif 
+}
+
+.tableclass{
+    width: 85%; 
+    margin: auto; 
+    margin-bottom: 30px;
+    min-width: 500px;
+}
+
+.colum-center{
+    text-align:center;
+}
+
+.colum-id{
+    text-align:center;
+    width: 110px;
+}
+
+.contdatos{
+    margin: auto;
+    margin-bottom: 30px;
+    width: 450px;
+}
+
+.paneltabs{
+    width: 85%; 
+    margin: auto; 
+    margin-bottom: 30px; 
+    min-width: 530px;
+}
+
+
+
+/*--- header ---*/
+.arriba{
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 75px;
+    /* background: #009688; */
+    margin-bottom: 30px;
+
+}
+.top-bar {
+    position: absolute;
+    width: 100%;
+    height: 75px;
+    z-index: 99999;
+    padding-top:0px;
+
+    background: rgba(26, 94, 113, 0.85);
+}
+
+.tituloheader{
+    margin-left: 8%;
+    margin-top: 15px;
+    font-family: 'Lato', sans-serif;
+    color: #eeeeee;
+}
+
+.enlinea{
+    border-radius: 100%;
+    display: inline-block; 
+}
+
+/*-- //nav Efectos --*/
+.nav-cont{ 
+    margin-right: 5%;
+    margin-top: 15px;
+    font-family: 'Lato', sans-serif;
+    color: #eeeeee;
+}
+
+a{
+    text-decoration:none;
+}
+
+#url1:hover, #url2:hover, #url3:hover, #url4:hover{
+    /*background-color: #FE9A2E;*/
+    color: #FE9A2E;
+}
+
+nav.linkEffects.linkHoverEffect_12 ul li {
+    list-style: none;
+    display: inline-block;
+    margin-right:6px;
+}
+nav.linkEffects.linkHoverEffect_12 {
+    float: right;
+}
+.linkHoverEffect_12 a {
+    padding: 10px 14px;
+    position: relative;
+    -moz-transition: ease-out 0.3s 0.1s;
+    -o-transition: ease-out 0.3s 0.1s;
+    -webkit-transition: ease-out 0.3s;
+    -webkit-transition-delay: 0.1s;
+    transition: ease-out 0.3s 0.1s;
+    font-size: 1.1em;
+    color: #fff;
+}
+.linkHoverEffect_12  a span::before {
+    height: 100%;
+    width: 2px;
+    background: #b56d10;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    -moz-transform: scaleY(0);
+    -ms-transform: scaleY(0);
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+.linkHoverEffect_12  a span::after {
+    height: 100%;
+    width: 2px;
+    background: #b56d10;
+    content: "";
+    position: absolute;
+    right: 0;
+    top: 0;
+    -moz-transform: scaleY(0);
+    -ms-transform: scaleY(0);
+    -webkit-transform: scaleY(0);
+    transform: scaleY(0);
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+.linkHoverEffect_12  a::before {
+    height: 2px;
+    width: 100%;
+    background: #b56d10;
+    content: "";
+    position: absolute;
+    left: 0;
+    top: 0;
+    -moz-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+.linkHoverEffect_12  a::after {
+    height: 2px;
+    width: 100%;
+    background: #b56d10;
+    content: "";
+    position: absolute;
+    left: 0px;
+    bottom: 0;
+    -moz-transform: scaleX(0);
+    -ms-transform: scaleX(0);
+    -webkit-transform: scaleX(0);
+    transform: scaleX(0);
+    -moz-transition: 0.3s;
+    -o-transition: 0.3s;
+    -webkit-transition: 0.3s;
+    transition: 0.3s;
+}
+.linkHoverEffect_12 a:hover {
+    color: #f9f7f5;
+}
+.linkHoverEffect_12  a:hover::before, .linkHoverEffect_12  a:hover::after {
+    -moz-transform: scaleX(1);
+    -ms-transform: scaleX(1);
+    -webkit-transform: scaleX(1);
+    transform: scaleX(1);
+}
+.linkHoverEffect_12  a:hover span::before, .linkHoverEffect_12  a:hover span::after {
+    -moz-transform: scaleY(1);
+    -ms-transform: scaleY(1);
+    -webkit-transform: scaleY(1);
+    transform: scaleY(1);
+}
+/*-- //nav Efectos--*/
+/*-- //header ---*/
+
+
+/*-- footer --*/
+.mandarabajo{
+    float: bottom;
+    width: 100%;
+}
+
+.oculto{
+    display: none;
+}
+
+.agileits-w3layouts-footer{
+    background:#14112c;
+    padding:1em 0;
+    padding-left: 15%;
+    padding-right: 15%;
+
+}
+.w3-agile-grid h5{
+    color: #FFFFFF;
+    font-size: 1.2em;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 1px;
+    margin: 0 0 0.5m 0;
+}
+.w3-agile-grid p{
+    color: #b5b5b5;
+    font-size: .9em;
+    line-height: 1.8em;
+    margin: 0;
+}
+.agileinfo-social-grids {
+    margin: 0.5em 0 0 0;
+}
+.agileinfo-social-grids ul {
+    padding: 0;
+    margin: 0;
+}
+.agileinfo-social-grids ul li {
+    display: inline-block;
+    margin: 0 .5em 0 0;
+}
+.agileinfo-social-grids ul li a {
+    color: #FFFFFF;
+    text-align: center;
+}
+.agileinfo-social-grids ul li a i.fa.fa-facebook, .agileinfo-social-grids ul li a i.fa.fa-twitter, .agileinfo-social-grids ul li a i.fa.fa-rss, .agileinfo-social-grids ul li a i.fa.fa-google-plus{
+    height: 30px;
+    width: 30px;
+    border: solid 2px #1f1d36;
+    line-height: 29px;
+    background: #1f1d36;
+    color: #FFFFFF;
+    transition: 0.5s all;
+    -webkit-transition: 0.5s all;
+    -moz-transition: 0.5s all;
+    -o-transition: 0.5s all;
+    -ms-transition: 0.5s all;
+}
+
+.copyright{
+    padding:0.2em 0;
+    text-align:center;
+    background:#1f1d36;
+}
+.copyright p{
+    color:#b5b5b5;
+    font-size:.9em;
+    margin:0;
+}
+.copyright p a{
+    color:#FFFFFF;
+    text-decoration:none;
+}
+.copyright p a:hover{
+    color:#ff5301;	
+}
+
+/*----------- //footer --------------------*/
+
+
+@media(max-width:971px){
+    #menu-nav{
+        font-size: 15px;
+        margin-right: 1.5%;
+    }
+    .tituloheader{
+        margin-left: 0%;
+        text-align: center;
+    }
+}
+
+@media(max-width:916px){
+   #topic-header{
+        font-size: 25px;
+        margin-top: 3%;
+    } 
+}
+
+@media(max-width:839px){
+    #menu-nav{
+        font-size: 14px;
+        margin-right: 0%;
+    }
+    #topic-header{
+        
+    }
+}
+
+@media(max-width:719px){
+    #menu-nav{
+        display: none;
+    }
+}
+
+@media(max-width:410px){
+    #topic-header{
+        margin-top: 5%;
+        font-size: 25px;
+    }
+}
+
+@media(max-width:310px){
+    #topic-header{
+        margin-top: 10%;
+        font-size: 20px;
+    }
+}
+
+@media(max-width:600px){
+    #topic-footer{
+        display: none;   
+    }
+    #text-footer{
+        display: none;   
+    }
+    #copy{
+        display: none;
+    }
+    #copy2{
+        display: block;
+    }
+    #topic-footer2{
+        display: block;
+    }
+}
+
+
