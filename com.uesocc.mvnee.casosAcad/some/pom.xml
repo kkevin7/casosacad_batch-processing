@@ -17,8 +17,8 @@
             <groupId>io.fabric8</groupId>
             <artifactId>docker-maven-plugin</artifactId>
             <configuration>
-                <dockerHost>https://34.209.83.99:2376</dockerHost>
-                <certPath>/home/ec2-user/.docker/machine/machines/aws-01</certPath>
+                <dockerHost>https://52.43.73.167:2376</dockerHost>
+                <certPath>/home/ec2-user/.docker/machine/machines/dockerInstance</certPath>
                 <images>
                     <image>
                         <build>
