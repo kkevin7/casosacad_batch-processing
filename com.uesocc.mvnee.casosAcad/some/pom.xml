@@ -32,6 +32,13 @@
                 </images>
             </configuration>
                 <executions>
+                    <execution>
+                        <id>removing-container</id>
+                        <goals>
+                            <goal>stop</goal>
+                        </goals>
+                        <phase>pre-integration-test</phase>
+                    </execution>
               <execution>
                 <id>build-image</id>
                 <goals>
