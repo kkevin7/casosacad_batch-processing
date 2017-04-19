@@ -16,7 +16,7 @@
             <module>como.uesocc.mvnee.casosAcad-ear</module>
             <module>como.uesocc.mvnee.casosAcad-web</module>
             <module>como.uesocc.mvnee.casosAcad-ejb</module>
-            <module>some</module>
+            <module>com.uesocc.docker</module>
         </modules>
     </profile>
     <profile>
@@ -25,6 +25,8 @@
                 <module>como.uesocc.mvnee.casosAcad-ear</module>
                 <module>como.uesocc.mvnee.casosAcad-web</module>
                 <module>como.uesocc.mvnee.casosAcad-ejb</module>
+                <module>com.uesocc.docker</module>
+
             </modules>
     </profile>
     </profiles>
