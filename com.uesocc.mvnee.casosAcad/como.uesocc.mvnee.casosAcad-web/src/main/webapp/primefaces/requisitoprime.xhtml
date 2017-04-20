@@ -18,7 +18,7 @@
                 <f:view>
 
                     <h:form id="frm-requisito">
-                        <h1 class="titulo" ><h:outputText value="Requsitos"/></h1>
+                        <h1 class="titulo" ><h:outputText value="Requisitos"/></h1>
                         <p:dataTable value="#{frmRequisitoPrime.modelo}" id="tb-requisito" class="tableclass"
                                      var="item" 
                                      lazy="true"
@@ -28,10 +28,10 @@
                                      paginatorPosition="bottom"
                                      selectionMode="single"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     emptyMessage="Sin Considencia"
+                                     emptyMessage="Sin Coincidencia"
                                      >
                             <p:ajax update=":frm-crud" event="rowSelect" listener="#{frmRequisitoPrime.cambiarSeleccion}"/>
-                            <p:column filterBy="#{item.idRequisito}" headerText="ID" >
+                            <p:column filterBy="#{item.idRequisito}" headerText="ID" class="colum-id" >
                                 <f:facet name="header">
                                     <h:outputText value="IdRequisito"/>
                                 </f:facet>
