@@ -11,19 +11,12 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javax.annotation.PostConstruct;
 import javax.ejb.EJB;
-import javax.faces.application.FacesMessage;
-import javax.faces.context.FacesContext;
 import javax.inject.Named;
 import javax.faces.view.ViewScoped;
 import org.primefaces.event.SelectEvent;
-import org.primefaces.event.TabChangeEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
-/**
- *
- * @author kevin
- */
 @Named(value = "frmPasoPrime")
 @ViewScoped
 public class FrmPasoPrime implements Serializable{
@@ -148,7 +141,7 @@ public class FrmPasoPrime implements Serializable{
                 }
                 salida = null;
                     try {
-                        if (!filters.isEmpty() && (filters.containsKey("idPaso")||filters.containsKey("tiempo")||filters.containsKey("descripcion")||filters.containsKey("idTipoPaso"))) {
+                        if (!filters.isEmpty() && (filters.containsKey("idPaso")||filters.containsKey("tiempo")||filters.containsKey("nombre")||filters.containsKey("descripcion")||filters.containsKey("idTipoPaso"))) {
                             
                             if(filters.containsKey("idPaso")){
                                 salida = ejbPaso.findBy("idPaso", filters.get("idPaso").toString(), first, pageSize);
@@ -169,6 +162,12 @@ public class FrmPasoPrime implements Serializable{
                                 modelo.setRowCount(salida.size());
                             }
                             //fin tiempo
+                             } else if(filters.containsKey("nombre")){
+                                salida = ejbPaso.findBy("nombre", filters.get("nombre").toString(), first, pageSize);
+                            if (modelo != null) {
+                                modelo.setRowCount(salida.size());
+                            }
+                            
                             
                             }
                             else if(filters.containsKey("idTipoPaso")){
@@ -233,7 +232,7 @@ public class FrmPasoPrime implements Serializable{
     }
     
     public void editarRegistro(){
-        if(this.registro.getDescripcion().isEmpty() != true && this.registro.getTiempo().isEmpty() != true  && this.registro.getDescripcion()!= null && this.registro.getTiempo()!= null) {
+        if(this.registro.getDescripcion().isEmpty() != true && this.registro.getNombre().isEmpty() != true && this.registro.getTiempo().isEmpty() != true  && this.registro.getDescripcion()!= null && this.registro.getTiempo()!= null  && this.registro.getNombre()!= null ) {
 
 	    try{
 		if(this.registro != null && this.ejbPaso != null){
