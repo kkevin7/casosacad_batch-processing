@@ -65,14 +65,13 @@
                         <p:growl id="msgs" showDetail="true" />
 
                         <p:fieldset legend="Datos" class="contdatos">
-                            <h1><h:outputText value="Create/Edit"/></h1>
                             <p:panelGrid id="panel-crud" columns="2">
                                 <p:outputLabel value="IdPaso:" for="idPaso" />
                                 <p:inputText id="idPaso" value="#{frmPasoPrime.registro.idPaso}" title="IdPaso" disabled="true" readonly="true" />
                                 <p:outputLabel value="Descripcion:" for="descripcion" />
-                                <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{frmPasoPrime.registro.descripcion}" title="Descripcion" />
+                                <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{frmPasoPrime.registro.descripcion}" title="Descripcion" disabled="#{frmPasoPrime.frmcrudsts}" />
                                 <p:outputLabel value="Tiempo:" for="tiempo" />
-                                <p:inputText id="tiempo" value="#{frmPasoPrime.registro.tiempo}" title="Tiempo" />
+                                <p:inputText id="tiempo" value="#{frmPasoPrime.registro.tiempo}" title="Tiempo" disabled="#{frmPasoPrime.frmcrudsts}" />
                                 <p:outputLabel value="Tipo Paso:" for="idTipoPaso" />
                                 <p:selectOneMenu id="idTipoPaso" value="#{frmPasoPrime.registro.idTipoPaso}" converter="omnifaces.SelectItemsConverter">
 
@@ -80,7 +79,6 @@
                                 </p:selectOneMenu>
                             </p:panelGrid>
                             <co:crudBtns clase="#{frmPasoPrime}" update=":frm-paso:tb-paso :frm-crud"/>
-                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                         </p:fieldset>
                     </h:form>
                 </f:view>

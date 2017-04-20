@@ -74,16 +74,15 @@
                         <p:growl id="msgs" showDetail="true" />
 
                         <p:fieldset legend="Datos" class="contdatos">
-                            <h1><h:outputText value="Create/Edit"/></h1>
                             <p:panelGrid id="panel-crud" columns="2">
                                 <p:outputLabel value="IdRequisito:" for="idRequisito" />
                                 <p:inputText id="idRequisito" value="#{frmRequisitoPrime.registro.idRequisito}" title="IdRequisito" disabled="true" readonly=""/>
                                 <p:outputLabel value="Nombre:" for="nombre" />
-                                <p:inputText id="nombre" value="#{frmRequisitoPrime.registro.nombre}" title="Nombre" />
+                                <p:inputText id="nombre" value="#{frmRequisitoPrime.registro.nombre}" title="Nombre" disabled="#{frmRequisitoPrime.frmcrudsts}" />
                                 <p:outputLabel value="Descripcion:" for="descripcion" />
-                                <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{frmRequisitoPrime.registro.descripcion}" title="Descripcion" />
+                                <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{frmRequisitoPrime.registro.descripcion}" title="Descripcion" disabled="#{frmRequisitoPrime.frmcrudsts}" />
                                 <p:outputLabel value="Prioridad:" for="prioridad" />
-                                <p:inputText id="prioridad" value="#{frmRequisitoPrime.registro.prioridad}" title="Prioridad" />
+                                <p:inputText id="prioridad" value="#{frmRequisitoPrime.registro.prioridad}" title="Prioridad" disabled="#{frmRequisitoPrime.frmcrudsts}"  />
                                 <p:outputLabel value="Tipo Requisito:" for="idTipoRequisito" />
                                 <p:selectOneMenu id="idTipoRequisito" value="#{frmRequisitoPrime.registro.idTipoRequisito}" converter="omnifaces.SelectItemsConverter">
 
@@ -91,7 +90,6 @@
                                 </p:selectOneMenu> 
                             </p:panelGrid>
                             <co:crudBtns clase="#{frmRequisitoPrime}" update=":frm-requisito:tb-requisito :frm-crud"/>
-                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                         </p:fieldset>
                     </h:form>
                 </f:view>

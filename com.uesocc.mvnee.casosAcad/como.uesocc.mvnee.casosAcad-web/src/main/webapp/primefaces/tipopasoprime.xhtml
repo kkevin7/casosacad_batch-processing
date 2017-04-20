@@ -20,7 +20,7 @@
 
                     <h:form id="frm-tipopaso">
                         <h1 class="titulo" ><h:outputText value="Tipo Paso"/></h1>
-                        <co:tipopasoTable/>
+                        <co:tipopasoTable id="cc-table" up="frm-crud"/>
                     </h:form>
                 </f:view>
 
@@ -29,19 +29,17 @@
                     <h:form id="frm-crud">
                         <p:growl id="msgs" showDetail="true" />
                         <p:fieldset legend="Datos" class="contdatos">
-                            <h1><h:outputText value="Create/Edit"/></h1>
                             <p:panelGrid columns="2" id="panel-crud">
                                 <p:outputLabel value="IdTipoPaso:" for="idTipoPaso" />
                                 <p:inputText id="idTipoPaso" value="#{frmTipoPasoPrime.registro.idTipoPaso}" disabled="true" readonly="true" />
                                 <p:outputLabel value="Nombre:" for="nombre" />
-                                <p:inputText id="nombre" value="#{frmTipoPasoPrime.registro.nombre}" title="Nombre" />
+                                <p:inputText id="nombre" value="#{frmTipoPasoPrime.registro.nombre}" title="Nombre" disabled="#{frmTipoPasoPrime.frmcrudsts}" />
                                 <p:outputLabel value="Estado:" for="activo" />
                                 <p:selectBooleanCheckbox id="activo" value="#{frmTipoPasoPrime.registro.activo}"/>
                                 <p:outputLabel value="Descripcion:" for="descripcion" />
-                                <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{frmTipoPasoPrime.registro.descripcion}" />
+                                <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{frmTipoPasoPrime.registro.descripcion}" disabled="#{frmTipoPasoPrime.frmcrudsts}" />
                             </p:panelGrid>
-                            <co:crudBtns clase="#{frmTipoPasoPrime}" update=":frm-tipopaso:tb-tipopaso :frm-crud"/>
-                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                            <co:crudBtns clase="#{frmTipoPasoPrime}" update=":frm-tipopaso:cc-table:tb-tipopaso :frm-crud"/>
                         </p:fieldset>
                     </h:form>
                 </f:view>

@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ues.casosAcad.prime.beans;
 
 import com.uesocc.entities.casosAcad.TipoPaso;
@@ -22,10 +17,7 @@ import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
-/**
- *
- * @author kevin
- */
+
 @Named(value = "frmTipoRequisitoPrime")
 @ViewScoped
 public class FrmTipoRequisitoPrime implements Serializable{
@@ -38,6 +30,8 @@ public class FrmTipoRequisitoPrime implements Serializable{
     private boolean btnedit = false; //encapsulado
     private boolean btnremove = false; //encapsulado
     private boolean frmcrud = false; //encapsulado
+    private boolean frmcrudsts = true; // encapsulado
+
     
     MensajesFormularios mensaje = new MensajesFormularios(); //Mensaje de Validacion
     
@@ -208,6 +202,7 @@ public class FrmTipoRequisitoPrime implements Serializable{
          setBtnadd(true);
          setBtnedit(false);
          setBtnremove(false);
+         setFrmcrudsts(false);
     }
     
     public void crearRegistro(){
@@ -264,6 +259,7 @@ public class FrmTipoRequisitoPrime implements Serializable{
       setBtnedit(true);
       setBtnremove(true);
       setBtnadd(false);
+      setFrmcrudsts(false);
     }
 
     /**
@@ -306,6 +302,20 @@ public class FrmTipoRequisitoPrime implements Serializable{
      */
     public void setFrmcrud(boolean frmcrud) {
         this.frmcrud = frmcrud;
+    }
+
+    /**
+     * @return the frmcrudsts
+     */
+    public boolean isFrmcrudsts() {
+        return frmcrudsts;
+    }
+
+    /**
+     * @param frmcrudsts the frmcrudsts to set
+     */
+    public void setFrmcrudsts(boolean frmcrudsts) {
+        this.frmcrudsts = frmcrudsts;
     }
     
 }

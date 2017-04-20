@@ -69,14 +69,13 @@
                         <p:tab title="Pasos">
 
                             <p:fieldset id="cont1" legend="Datos" class="contdatos">
-                                <h1><h:outputText value="Create/Edit"/></h1>
-                                <p:panelGrid id="panel-crud" columns="2">
+                                <p:panelGrid id="panel-crud" columns="2"   >
                                     <p:outputLabel value="IdPaso:" for="idPaso" />
-                                    <p:inputText id="idPaso" value="#{frmPasoPrime.registro.idPaso}" title="IdPaso" disabled="true" readonly="true" />
+                                    <p:inputText id="idPaso" value="#{frmPasoPrime.registro.idPaso}"  title="IdPaso" disabled="true" readonly="true"   />
                                     <p:outputLabel value="Descripcion:" for="descripcion" />
-                                    <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{frmPasoPrime.registro.descripcion}" title="Descripcion" />
+                                    <p:inputTextarea rows="4"  cols="30" id="descripcion"  value="#{frmPasoPrime.registro.descripcion}" title="Descripcion"  disabled="#{frmPasoPrime.frmcrudsts}"/>
                                     <p:outputLabel value="Tiempo:" for="tiempo" />
-                                    <p:inputText id="tiempo" value="#{frmPasoPrime.registro.tiempo}" title="Tiempo" />
+                                    <p:inputText id="tiempo"  value="#{frmPasoPrime.registro.tiempo}"  title="Tiempo"  disabled="#{frmPasoPrime.frmcrudsts}" />
                                     <p:outputLabel value="Tipo Paso:" for="idTipoPaso" />
                                     <p:selectOneMenu id="idTipoPaso" value="#{frmPasoPrime.registro.idTipoPaso}" converter="omnifaces.SelectItemsConverter">
 
@@ -84,24 +83,23 @@
                                     </p:selectOneMenu>
                                 </p:panelGrid>
                                 <co:crudBtns clase="#{frmPasoPrime}" update=":frm-paso:tb-paso :frm-crud"/> 
-                                <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                             </p:fieldset>
 
                         </p:tab>
                         <p:tab title="Tipo Pasos">
 
                             <co:tipopasoTable up=":frm-crud:tabs:cont2"/>
-                            <p:fieldset id="cont2"legend="Datos" class="contdatos">
-                                <h1><h:outputText value="Create"/></h1>
+                            
+                            <p:fieldset id="cont2" legend="Datos" class="contdatos">
                                 <p:panelGrid columns="2" id="panel-crud2">
                                     <p:outputLabel value="IdTipoPaso:" for="idTipoPaso2" />
                                     <p:inputText id="idTipoPaso2" value="#{frmTipoPasoPrime.registro.idTipoPaso}" disabled="true" readonly="true" />
                                     <p:outputLabel value="Nombre:" for="nombre2" />
-                                    <p:inputText id="nombre2" value="#{frmTipoPasoPrime.registro.nombre}" title="Nombre" />
+                                    <p:inputText id="nombre2" value="#{frmTipoPasoPrime.registro.nombre}" title="Nombre"  disabled="#{frmTipoPasoPrime.frmcrudsts}" />
                                     <p:outputLabel value="Estado:" for="activo2" />
                                     <p:selectBooleanCheckbox id="activo2" value="#{frmTipoPasoPrime.registro.activo}"/>
                                     <p:outputLabel value="Descripcion:" for="descripcion2" />
-                                    <p:inputTextarea rows="4" cols="30" id="descripcion2" value="#{frmTipoPasoPrime.registro.descripcion}" />
+                                    <p:inputTextarea rows="4" cols="30" id="descripcion2" disabled="#{frmTipoPasoPrime.frmcrudsts}" value="#{frmTipoPasoPrime.registro.descripcion}" />
                                 </p:panelGrid>
                                 <co:crudBtns clase="#{frmTipoPasoPrime}" update=":frm-paso:tb-paso :frm-crud"/>
                             </p:fieldset>

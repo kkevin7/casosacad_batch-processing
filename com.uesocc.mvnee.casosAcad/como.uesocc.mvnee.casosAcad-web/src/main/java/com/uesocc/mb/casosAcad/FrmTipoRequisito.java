@@ -17,7 +17,7 @@ import javax.faces.view.ViewScoped;
 
 @Named(value = "frmTipoRequisito")
 @ViewScoped
-public class frmTipoRequisito implements Serializable{
+public class FrmTipoRequisito implements Serializable{
         @EJB
         TipoRequisitoFacadeLocal ejbTipoRequisito;
         TipoRequisito tipoRequisito = new TipoRequisito();boolean validar=true;
@@ -33,7 +33,7 @@ public class frmTipoRequisito implements Serializable{
          
     }
         
-    public frmTipoRequisito(){
+    public FrmTipoRequisito(){
     }
     
     public boolean command(){

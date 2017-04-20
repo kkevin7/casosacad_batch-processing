@@ -17,8 +17,8 @@
                 <f:view>
 
                     <h:form id="frm-tr">
-                        <h1 class="titulo" ><h:outputText value="Tipo Requisito"/><i class="fa fa-check" aria-hidden="true"></i></h1>
-                        <co:tiporequisitoTable/>
+                        <h1 class="titulo" ><h:outputText value="Tipo Requisito"/></h1>
+                        <co:tiporequisitoTable id="cc-table" up=":frm-crud"/>
                     </h:form>
                 </f:view>
 
@@ -28,19 +28,17 @@
                         <p:growl id="msgs" showDetail="true" />
 
                         <p:fieldset legend="Datos" class="contdatos">
-                            <h1><h:outputText value="Create/Edit"/></h1>
                             <p:panelGrid id="panel-crud" columns="2">
                                 <p:outputLabel id="idpanel" value="IdTipoRequisito:" for="idTipoRequisito" />
                                 <p:inputText id="idTipoRequisito" value="#{frmTipoRequisitoPrime.registro.idTipoRequisito}" disabled="true" readonly="true" />
                                 <p:outputLabel value="Nombre:" for="nombre" />
-                                <p:inputText id="nombre" value="#{frmTipoRequisitoPrime.registro.nombre}" title="Nombre" />
+                                <p:inputText id="nombre" value="#{frmTipoRequisitoPrime.registro.nombre}" title="Nombre" disabled="#{frmTipoRequisitoPrime.frmcrudsts}" />
                                 <p:outputLabel value="Estado:" for="activo" />
                                 <p:selectBooleanCheckbox id="activo" value="#{frmTipoRequisitoPrime.registro.activo}"/>
                                 <p:outputLabel value="Observaciones:" for="observaciones" />
-                                <p:inputTextarea id="observaciones" value="#{frmTipoRequisitoPrime.registro.observaciones}" title="Observaciones"/>
+                                <p:inputTextarea id="observaciones" value="#{frmTipoRequisitoPrime.registro.observaciones}" title="Observaciones" disabled="#{frmTipoRequisitoPrime.frmcrudsts}" />
                             </p:panelGrid>
-                            <co:crudBtns clase="#{frmTipoRequisitoPrime}" update=":frm-tr:tb-tiporequisito :frm-crud"/>
-                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                            <co:crudBtns clase="#{frmTipoRequisitoPrime}" update=":frm-tr:cc-table:tb-tiporequisito :frm-crud"/>
                         </p:fieldset>
                     </h:form>
                 </f:view>

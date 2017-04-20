@@ -1,8 +1,3 @@
-/*
- * To change this license header, choose License Headers in Project Properties.
- * To change this template file, choose Tools | Templates
- * and open the template in the editor.
- */
 package ues.casosAcad.prime.beans;
 
 import com.uesocc.entities.casosAcad.Paso;
@@ -42,6 +37,8 @@ public class FrmPasoPrime implements Serializable{
     private boolean btnedit = false; //encapsulado
     private boolean btnremove = false; //encapsulado
     private boolean frmcrud = false; //encapsulado
+    private boolean frmcrudsts = true; // encapsulado
+
     
     private LazyDataModel<Paso> modelo;
     private Paso registro;
@@ -196,31 +193,13 @@ public class FrmPasoPrime implements Serializable{
             Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
         }
     }
-    
-    
-//    public void btnNuevo() {
-//        this.registro = new Paso();
-//        this.btnadd = !this.btnadd;
-//    }
-
-//     @Deprecated
-//    public void guardarRegitro() {
-//        try {
-//            if (this.registro != null && this.ejbPaso != null) {
-//                if (this.ejbPaso.creator(registro)) {
-//                    this.btnadd = !this.btnadd;
-//                }
-//            }
-//        } catch (Exception e) {
-//            Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
-//        }
-//    }
-    
+        
     public void nuevo() {
         this.registro = new Paso();
             setBtnadd(true);
             setBtnedit(false);
             setBtnremove(false);
+            setFrmcrudsts(false);
     }
     
     public void crearRegistro(){
@@ -276,6 +255,7 @@ public class FrmPasoPrime implements Serializable{
       setBtnedit(true);
       setBtnremove(true);
       setBtnadd(false);
+        setFrmcrudsts(false);
     }
 
     /**
@@ -332,6 +312,20 @@ public class FrmPasoPrime implements Serializable{
      */
     public void setFrmcrud(boolean frmcrud) {
         this.frmcrud = frmcrud;
+    }
+
+    /**
+     * @return the frmcrudsts
+     */
+    public boolean isFrmcrudsts() {
+        return frmcrudsts;
+    }
+
+    /**
+     * @param frmcrudsts the frmcrudsts to set
+     */
+    public void setFrmcrudsts(boolean frmcrudsts) {
+        this.frmcrudsts = frmcrudsts;
     }
     
     
