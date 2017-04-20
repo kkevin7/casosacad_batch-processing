@@ -37,10 +37,16 @@
                             </p:column >
                             <p:column filterBy="#{item.idTipoPaso}" headerText="Paso">
                                 <f:facet name="header">
-                                    <h:outputText value="Paso"/>
+                                    <h:outputText value="Tipo Paso"/>
                                 </f:facet>
                                 <h:outputText value="#{item.idTipoPaso.nombre}"/>
                             </p:column>
+                            <p:column filterBy="#{item.nombre}" headerText="Nombre">
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nombre}"/>
+                            </p:column >
                             <p:column filterBy="#{item.descripcion}" headerText="Descripcion" >
                                 <f:facet name="header">
                                     <h:outputText value="Descripcion"/>
@@ -68,6 +74,8 @@
                             <p:panelGrid id="panel-crud" columns="2">
                                 <p:outputLabel value="IdPaso:" for="idPaso" />
                                 <p:inputText id="idPaso" value="#{frmPasoPrime.registro.idPaso}" title="IdPaso" disabled="true" readonly="true" />
+                                <p:outputLabel value="Nombre:" for="nombre" />
+                                <p:inputText id="nombre" value="#{frmPasoPrime.registro.nombre}" title="Nombre" disabled="#{frmPasoPrime.frmcrudsts}" />                              
                                 <p:outputLabel value="Descripcion:" for="descripcion" />
                                 <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{frmPasoPrime.registro.descripcion}" title="Descripcion" disabled="#{frmPasoPrime.frmcrudsts}" />
                                 <p:outputLabel value="Tiempo:" for="tiempo" />
