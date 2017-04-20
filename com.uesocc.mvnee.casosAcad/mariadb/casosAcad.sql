@@ -1,6 +1,6 @@
--- MySQL dump 10.16  Distrib 10.1.21-MariaDB, for debian-linux-gnu (x86_64)
+-- MySQL dump 10.16  Distrib 10.1.22-MariaDB, for debian-linux-gnu (x86_64)
 --
--- Host: localhost    Database: localhost
+-- Host: localhost    Database: casosAcad
 -- ------------------------------------------------------
 -- Server version	10.1.22-MariaDB-1~jessie
 
@@ -138,10 +138,11 @@ CREATE TABLE `paso` (
   `idTipoPaso` int(5) NOT NULL,
   `Descripcion` text NOT NULL,
   `Tiempo` varchar(20) NOT NULL,
+  `Nombre` varchar(100) NOT NULL,
   PRIMARY KEY (`idPaso`),
   KEY `idTipoPaso` (`idTipoPaso`),
   CONSTRAINT `Paso_ibfk_1` FOREIGN KEY (`idTipoPaso`) REFERENCES `tipo_paso` (`idTipoPaso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,6 +151,7 @@ CREATE TABLE `paso` (
 
 LOCK TABLES `paso` WRITE;
 /*!40000 ALTER TABLE `paso` DISABLE KEYS */;
+INSERT INTO `paso` VALUES (1,5,'Se realiza la apertura del expediente con contraseñas pre-establecidad','1 semana','Creacion expediente'),(4,2,'La unidad asignada asignara un periodo para que el solicitante pueda realizar la entrega de documentos.','3 días','Recepcion Documentos'),(5,1,'kamsdp','poaksd','asdñm'),(6,1,'asdñlm','ñaosd','aopskd'),(7,1,'poaksd','pokasd','asdk');
 /*!40000 ALTER TABLE `paso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -251,7 +253,7 @@ CREATE TABLE `requisito` (
   PRIMARY KEY (`idRequisito`),
   KEY `idTipoRequisito` (`idTipoRequisito`),
   CONSTRAINT `Requisito_ibfk_1` FOREIGN KEY (`idTipoRequisito`) REFERENCES `tipo_requisito` (`idTipoRequisito`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=4 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -260,6 +262,7 @@ CREATE TABLE `requisito` (
 
 LOCK TABLES `requisito` WRITE;
 /*!40000 ALTER TABLE `requisito` DISABLE KEYS */;
+INSERT INTO `requisito` VALUES (1,3,'Pago matrícula','La matricula debe estar pagada para este tramite.','Alta'),(2,1,'Dui','Se debe entregar una copia de documentos único de identidad.','Media'),(3,1,'F1','Se debe poseer el formulario F1 completo.','Media');
 /*!40000 ALTER TABLE `requisito` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -351,4 +354,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-03-27 12:21:50
+-- Dump completed on 2017-04-20 14:31:07
