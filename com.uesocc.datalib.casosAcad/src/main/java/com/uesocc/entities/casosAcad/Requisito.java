@@ -6,9 +6,7 @@
 package com.uesocc.entities.casosAcad;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,10 +17,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -57,8 +53,6 @@ public class Requisito implements Serializable {
     @JoinColumn(name = "idTipoRequisito", referencedColumnName = "idTipoRequisito", nullable = false)
     @ManyToOne(optional = false)
     private TipoRequisito idTipoRequisito;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idRequisito")
-    private List<PasoRequisito> pasoRequisitoList;
 
     public Requisito() {
     }
@@ -112,15 +106,6 @@ public class Requisito implements Serializable {
 
     public void setIdTipoRequisito(TipoRequisito idTipoRequisito) {
         this.idTipoRequisito = idTipoRequisito;
-    }
-
-    @XmlTransient
-    public List<PasoRequisito> getPasoRequisitoList() {
-        return pasoRequisitoList;
-    }
-
-    public void setPasoRequisitoList(List<PasoRequisito> pasoRequisitoList) {
-        this.pasoRequisitoList = pasoRequisitoList;
     }
 
     @Override

@@ -6,9 +6,7 @@
 package com.uesocc.entities.casosAcad;
 
 import java.io.Serializable;
-import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -19,10 +17,8 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
-import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -34,7 +30,8 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "Paso.findAll", query = "SELECT p FROM Paso p")
     , @NamedQuery(name = "Paso.findByIdPaso", query = "SELECT p FROM Paso p WHERE p.idPaso = :idPaso")
-    , @NamedQuery(name = "Paso.findByTiempo", query = "SELECT p FROM Paso p WHERE p.tiempo = :tiempo")})
+    , @NamedQuery(name = "Paso.findByTiempo", query = "SELECT p FROM Paso p WHERE p.tiempo = :tiempo")
+    , @NamedQuery(name = "Paso.findByNombre", query = "SELECT p FROM Paso p WHERE p.nombre = :nombre")})
 public class Paso implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -50,13 +47,12 @@ public class Paso implements Serializable {
     @Basic(optional = false)
     @Column(name = "Tiempo", nullable = false, length = 20)
     private String tiempo;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPaso")
-    private List<ProcesoDetalle> procesoDetalleList;
+    @Basic(optional = false)
+    @Column(name = "Nombre", nullable = false, length = 100)
+    private String nombre;
     @JoinColumn(name = "idTipoPaso", referencedColumnName = "idTipoPaso", nullable = false)
     @ManyToOne(optional = false)
     private TipoPaso idTipoPaso;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPaso")
-    private List<PasoRequisito> pasoRequisitoList;
 
     public Paso() {
     }
@@ -65,10 +61,11 @@ public class Paso implements Serializable {
         this.idPaso = idPaso;
     }
 
-    public Paso(Integer idPaso, String descripcion, String tiempo) {
+    public Paso(Integer idPaso, String descripcion, String tiempo, String nombre) {
         this.idPaso = idPaso;
         this.descripcion = descripcion;
         this.tiempo = tiempo;
+        this.nombre = nombre;
     }
 
     public Integer getIdPaso() {
@@ -95,13 +92,12 @@ public class Paso implements Serializable {
         this.tiempo = tiempo;
     }
 
-    @XmlTransient
-    public List<ProcesoDetalle> getProcesoDetalleList() {
-        return procesoDetalleList;
+    public String getNombre() {
+        return nombre;
     }
 
-    public void setProcesoDetalleList(List<ProcesoDetalle> procesoDetalleList) {
-        this.procesoDetalleList = procesoDetalleList;
+    public void setNombre(String nombre) {
+        this.nombre = nombre;
     }
 
     public TipoPaso getIdTipoPaso() {
@@ -110,15 +106,6 @@ public class Paso implements Serializable {
 
     public void setIdTipoPaso(TipoPaso idTipoPaso) {
         this.idTipoPaso = idTipoPaso;
-    }
-
-    @XmlTransient
-    public List<PasoRequisito> getPasoRequisitoList() {
-        return pasoRequisitoList;
-    }
-
-    public void setPasoRequisitoList(List<PasoRequisito> pasoRequisitoList) {
-        this.pasoRequisitoList = pasoRequisitoList;
     }
 
     @Override
