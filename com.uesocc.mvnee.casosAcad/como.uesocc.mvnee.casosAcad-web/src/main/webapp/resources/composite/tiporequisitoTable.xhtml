@@ -1,0 +1,59 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:cc="http://xmlns.jcp.org/jsf/composite"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:p="http://primefaces.org/ui">
+
+    <!-- INTERFACE -->
+    <cc:interface>
+        <cc:attribute name="up" />
+    </cc:interface>
+
+    <!-- IMPLEMENTATION -->
+    <cc:implementation>
+        <p:dataTable value="#{frmTipoRequisitoPrime.modelo}" id="tb-tiporequisito" class="tableclass"
+                     var="item" 
+                     lazy="true"
+                     paginator="true"
+                     rows="5"
+                     rowsPerPageTemplate="5,10,15"
+                     paginatorPosition="bottom"
+                     selectionMode="single"                            
+                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                     emptyMessage="Sin Considencia"
+                     widgetVar="dataTable"
+                     >
+            <p:ajax update="#{cc.attrs.up}" event="rowSelect" listener="#{frmTipoRequisitoPrime.cambiarSeleccion}"/>
+            <p:column filterBy="#{item.idTipoRequisito}" headerText="ID" >
+                <f:facet name="header">
+                    <h:outputText value="ID"/>
+                </f:facet>
+                <h:outputText value="#{item.idTipoRequisito}"/>
+            </p:column>
+            <p:column filterBy="#{item.nombre}" headerText="Nombre" >
+                <f:facet name="header">
+                    <h:outputText value="Nombre"/>
+                </f:facet>
+                <h:outputText value="#{item.nombre}"/>
+            </p:column>
+            <p:column filterBy="#{item.activo}" headerText="Estado">
+                <f:facet name="filter">
+                    <p:selectOneMenu onchange="PF('dataTable').filter()">
+                        <f:selectItem itemLabel="Todos" itemValue="" />
+                        <f:selectItem itemLabel="Activo" itemValue="1" />
+                        <f:selectItem itemLabel="Inactivo" itemValue="0" />
+                    </p:selectOneMenu>
+                </f:facet>
+                <h:outputText value="#{item.activo? 'Activo':'Inactivo'}"/>
+            </p:column>
+            <p:column filterBy="#{item.observaciones}" headerText="Descripcion" >
+                <f:facet name="header">
+                    <h:outputText value="Observaciones"/>
+                </f:facet>
+                <h:outputText value="#{item.observaciones}"/>
+            </p:column>
+        </p:dataTable>
+    </cc:implementation>
+</html>

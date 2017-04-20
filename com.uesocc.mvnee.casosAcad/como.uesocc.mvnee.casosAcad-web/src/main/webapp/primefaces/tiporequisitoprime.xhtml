@@ -18,48 +18,7 @@
 
                     <h:form id="frm-tr">
                         <h1 class="titulo" ><h:outputText value="Tipo Requisito"/><i class="fa fa-check" aria-hidden="true"></i></h1>
-                        <p:dataTable value="#{frmTipoRequisitoPrime.modelo}" id="tb-tiporequisito" class="tableclass"
-                                     var="item" 
-                                     lazy="true"
-                                     paginator="true"
-                                     rows="5"
-                                     rowsPerPageTemplate="5,10,15"
-                                     paginatorPosition="bottom"
-                                     selectionMode="single"                            
-                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
-                                     emptyMessage="Sin Considencia"
-                                     widgetVar="dataTable"
-                                     >
-                            <p:ajax update=":frm-crud" event="rowSelect" listener="#{frmTipoRequisitoPrime.cambiarSeleccion}"/>
-                            <p:column filterBy="#{item.idTipoRequisito}" headerText="ID" >
-                                <f:facet name="header">
-                                    <h:outputText value="ID"/>
-                                </f:facet>
-                                <h:outputText value="#{item.idTipoRequisito}"/>
-                            </p:column>
-                            <p:column filterBy="#{item.nombre}" headerText="Nombre" >
-                                <f:facet name="header">
-                                    <h:outputText value="Nombre"/>
-                                </f:facet>
-                                <h:outputText value="#{item.nombre}"/>
-                            </p:column>
-                            <p:column filterBy="#{item.activo}" headerText="Estado">
-                                <f:facet name="filter">
-                                    <p:selectOneMenu onchange="PF('dataTable').filter()">
-                                        <f:selectItem itemLabel="Todos" itemValue="" />
-                                        <f:selectItem itemLabel="Activo" itemValue="1" />
-                                        <f:selectItem itemLabel="Inactivo" itemValue="0" />
-                                    </p:selectOneMenu>
-                                </f:facet>
-                                <h:outputText value="#{item.activo? 'Activo':'Inactivo'}"/>
-                            </p:column>
-                            <p:column filterBy="#{item.observaciones}" headerText="Descripcion" >
-                                <f:facet name="header">
-                                    <h:outputText value="Observaciones"/>
-                                </f:facet>
-                                <h:outputText value="#{item.observaciones}"/>
-                            </p:column>
-                        </p:dataTable>
+                        <co:tiporequisitoTable/>
                     </h:form>
                 </f:view>
 
