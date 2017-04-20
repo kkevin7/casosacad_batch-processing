@@ -24,7 +24,7 @@
                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                      widgetVar="dataTable"
                      >
-            <p:ajax update=":frm-crud" event="rowSelect" listener="#{frmTipoPasoPrime.cambiarSeleccion}"/>
+            <p:ajax update="#{cc.attrs.up}" event="rowSelect" listener="#{frmTipoPasoPrime.cambiarSeleccion}"/>
             <p:column filterBy="#{item.idTipoPaso}" headerText="ID">
                 <f:facet name="header">
                     <h:outputText value="IdTipoPaso"/>
