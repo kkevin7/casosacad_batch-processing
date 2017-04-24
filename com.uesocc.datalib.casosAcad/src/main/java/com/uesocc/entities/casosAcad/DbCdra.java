@@ -14,6 +14,7 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
+import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
@@ -45,9 +46,12 @@ public class DbCdra implements Serializable {
     @Column(name = "Fecha", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    @JoinColumn(name = "IdCDR", referencedColumnName = "idCDR", nullable = false)
+    @Lob
+    @Column(name = "Descripcion", length = 65535)
+    private String descripcion;
+    @JoinColumn(name = "IdCasoDR", referencedColumnName = "idCasoDR", nullable = false)
     @ManyToOne(optional = false)
-    private CasoDetalleRequisito idCDR;
+    private CasoDetalleRequisito idCasoDR;
 
     public DbCdra() {
     }
@@ -77,12 +81,20 @@ public class DbCdra implements Serializable {
         this.fecha = fecha;
     }
 
-    public CasoDetalleRequisito getIdCDR() {
-        return idCDR;
+    public String getDescripcion() {
+        return descripcion;
     }
 
-    public void setIdCDR(CasoDetalleRequisito idCDR) {
-        this.idCDR = idCDR;
+    public void setDescripcion(String descripcion) {
+        this.descripcion = descripcion;
+    }
+
+    public CasoDetalleRequisito getIdCasoDR() {
+        return idCasoDR;
+    }
+
+    public void setIdCasoDR(CasoDetalleRequisito idCasoDR) {
+        this.idCasoDR = idCasoDR;
     }
 
     @Override

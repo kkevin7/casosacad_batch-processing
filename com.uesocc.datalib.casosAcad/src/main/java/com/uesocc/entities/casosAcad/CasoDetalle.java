@@ -41,6 +41,10 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "CasoDetalle.findByFecha", query = "SELECT c FROM CasoDetalle c WHERE c.fecha = :fecha")})
 public class CasoDetalle implements Serializable {
 
+    @Basic(optional = false)
+    @Column(name = "idProcesoDetalle", nullable = false)
+    private int idProcesoDetalle;
+
     private static final long serialVersionUID = 1L;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -149,6 +153,14 @@ public class CasoDetalle implements Serializable {
     @Override
     public String toString() {
         return "com.uesocc.entities.casosAcad.CasoDetalle[ idCasoDetalle=" + idCasoDetalle + " ]";
+    }
+
+    public int getIdProcesoDetalle() {
+        return idProcesoDetalle;
+    }
+
+    public void setIdProcesoDetalle(int idProcesoDetalle) {
+        this.idProcesoDetalle = idProcesoDetalle;
     }
     
 }
