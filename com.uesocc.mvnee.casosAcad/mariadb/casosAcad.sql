@@ -54,7 +54,7 @@ CREATE TABLE `caso_detalle` (
   `idCasoDetalle` int(5) NOT NULL AUTO_INCREMENT,
   `IdCaso` int(5) NOT NULL,
   `Estado` varchar(10) NOT NULL,
-  `idProcesDetalle` int(5) NOT NULL,
+  `idProcesoDetalle` int(5) NOT NULL,
   `Fecha` date NOT NULL,
   PRIMARY KEY (`idCasoDetalle`),
   KEY `IdCaso` (`IdCaso`),
@@ -79,12 +79,12 @@ DROP TABLE IF EXISTS `caso_detalle_requisito`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `caso_detalle_requisito` (
-  `idCDR` int(5) NOT NULL AUTO_INCREMENT,
+  `idCasoDR` int(5) NOT NULL AUTO_INCREMENT,
   `idCasoDetalle` int(5) NOT NULL,
   `idPasoRequisito` int(5) NOT NULL,
   `EstadoRequisito` varchar(10) NOT NULL,
   `Fecha` date NOT NULL,
-  PRIMARY KEY (`idCDR`),
+  PRIMARY KEY (`idCasoDR`),
   KEY `idCasoDetalle` (`idCasoDetalle`),
   KEY `idPasoRequisito` (`idPasoRequisito`),
   CONSTRAINT `Caso_detalle_requisito_ibfk_1` FOREIGN KEY (`idCasoDetalle`) REFERENCES `caso_detalle` (`idCasoDetalle`)
@@ -109,11 +109,12 @@ DROP TABLE IF EXISTS `db_cdra`;
 /*!40101 SET character_set_client = utf8 */;
 CREATE TABLE `db_cdra` (
   `idCDRA` int(5) NOT NULL AUTO_INCREMENT,
-  `IdCDR` int(5) NOT NULL,
+  `IdCasoDR` int(5) NOT NULL,
   `Fecha` date NOT NULL,
+  `Descripcion` text,
   PRIMARY KEY (`idCDRA`),
-  KEY `IdCDR` (`IdCDR`),
-  CONSTRAINT `DB_CDRA_ibfk_1` FOREIGN KEY (`IdCDR`) REFERENCES `caso_detalle_requisito` (`idCDR`)
+  KEY `IdCDR` (`IdCasoDR`),
+  CONSTRAINT `DB_CDRA_ibfk_1` FOREIGN KEY (`IdCasoDR`) REFERENCES `caso_detalle_requisito` (`idCasoDR`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -315,7 +316,7 @@ CREATE TABLE `tipo_paso` (
 
 LOCK TABLES `tipo_paso` WRITE;
 /*!40000 ALTER TABLE `tipo_paso` DISABLE KEYS */;
-INSERT INTO `tipo_paso` VALUES (1,'Creacion  caso','Se crea un caso y se estabaleces los requerimeintos',NULL),(2,'Entrega de Documentos','Se requiere de los documentos solicitados',NULL),(3,'Validacion de Documentos','Se verifica las documentacion entregada',NULL),(4,'Firmas de Encargados','Los documentos son se entregan a la unidad correspondiente.',NULL),(5,'Resolucion','Se da una respuesta al caso.',NULL);
+INSERT INTO `tipo_paso` VALUES (1,'Creacion  caso','Se crea un caso y se estabaleces los requerimeintos',NULL),(2,'Entrega de Documentos','Se requiere de los documentos solicitados',NULL),(3,'Validacion de Documentos','Se verifica las documentacion entregada',0),(4,'Firmas de Encargados','Los documentos son se entregan a la unidad correspondiente.',NULL),(5,'Resolucion','Se da una respuesta al caso.',NULL);
 /*!40000 ALTER TABLE `tipo_paso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -354,4 +355,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-20 14:31:07
+-- Dump completed on 2017-04-24 18:26:49
