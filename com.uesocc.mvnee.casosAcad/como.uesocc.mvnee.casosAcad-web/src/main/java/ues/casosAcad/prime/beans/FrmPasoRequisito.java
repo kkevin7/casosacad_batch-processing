@@ -3,11 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ues.part2.otrosfrmprimes;
+package ues.casosAcad.prime.beans;
 
-import com.uesocc.entities.casosAcad.Solicitudes;
-import com.uesocc.facades.casosAcad.CasoFacadeLocal;
-import com.uesocc.facades.casosAcad.SolicitudesFacadeLocal;
+import com.uesocc.entities.casosAcad.Paso;
+import com.uesocc.entities.casosAcad.PasoRequisito;
+import com.uesocc.facades.casosAcad.PasoFacadeLocal;
+import com.uesocc.facades.casosAcad.PasoRequisitoFacadeLocal;
+import com.uesocc.facades.casosAcad.RequisitoFacadeLocal;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,81 +23,98 @@ import javax.faces.view.ViewScoped;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
-/*--------- Borrar esta linea al unirlo-------------------*/
-import ues.casosAcad.prime.beans.MensajesFormularios;
-/*-------------------------------------------------------*/
 
 /**
  *
  * @author kevin
  */
-@Named(value = "frmSolicitudesPrime")
+@Named(value = "frmPasoRequisito")
 @ViewScoped
-public class FrmSolicitudesPrime implements Serializable{
-
-    @EJB
-    private SolicitudesFacadeLocal ejbSolicitudes;
+public class FrmPasoRequisito implements Serializable{
     
     @EJB
-    private CasoFacadeLocal ejbCaso2;
+    private PasoRequisitoFacadeLocal ejbPasoRequisito;
+    
+    @EJB
+    private PasoFacadeLocal ejbPaso2;
+    @EJB
+    private RequisitoFacadeLocal ejbRequisito2;
     
     
     private boolean btnadd = false; //encapsulado
     private boolean btnedit = false; //encapsulado
     private boolean btnremove = false; //encapsulado
     private boolean frmcrud = false; //encapsulado
+    private boolean frmcrudsts = true; // encapsulado
     
-    private LazyDataModel<Solicitudes> modelo;
-    private Solicitudes registro;
+    private LazyDataModel<PasoRequisito> modelo;
+    private PasoRequisito registro;
     
     MensajesFormularios mensaje = new MensajesFormularios(); //Mensajes de validacion
     
     /*-------Getter and Setter --------*/
 
-    public SolicitudesFacadeLocal getEjbSolicitudes() {
-        return ejbSolicitudes;
+    public PasoRequisitoFacadeLocal getEjbPasoRequisito() {
+        return ejbPasoRequisito;
     }
 
-    public void setEjbSolicitudes(SolicitudesFacadeLocal ejbSolicitudes) {
-        this.ejbSolicitudes = ejbSolicitudes;
+    public void setEjbPasoRequisito(PasoRequisitoFacadeLocal ejbPasoRequisito) {
+        this.ejbPasoRequisito = ejbPasoRequisito;
     }
 
-    public CasoFacadeLocal getEjbCaso2() {
-        return ejbCaso2;
+    public PasoFacadeLocal getEjbPaso2() {
+        return ejbPaso2;
     }
 
-    public void setEjbCaso2(CasoFacadeLocal ejbCaso2) {
-        this.ejbCaso2 = ejbCaso2;
+    public void setEjbPaso2(PasoFacadeLocal ejbPaso2) {
+        this.ejbPaso2 = ejbPaso2;
     }
 
-    public LazyDataModel<Solicitudes> getModelo() {
+    public RequisitoFacadeLocal getEjbRequisito2() {
+        return ejbRequisito2;
+    }
+
+    public void setEjbRequisito2(RequisitoFacadeLocal ejbRequisito2) {
+        this.ejbRequisito2 = ejbRequisito2;
+    }
+
+    public LazyDataModel<PasoRequisito> getModelo() {
         return modelo;
     }
 
-    public void setModelo(LazyDataModel<Solicitudes> modelo) {
+    public void setModelo(LazyDataModel<PasoRequisito> modelo) {
         this.modelo = modelo;
     }
 
-    public Solicitudes getRegistro() {
+    public PasoRequisito getRegistro() {
         return registro;
     }
 
-    public void setRegistro(Solicitudes registro) {
+    public void setRegistro(PasoRequisito registro) {
         this.registro = registro;
     }
-       
+
+    public MensajesFormularios getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(MensajesFormularios mensaje) {
+        this.mensaje = mensaje;
+    }
     
-    /*-------End Getter and Setter ---------*/
     
-    public FrmSolicitudesPrime() {
+    /*-------Getter and Setter --------*/
+    
+    
+    public FrmPasoRequisito() {
     }
     
     @Deprecated
-    public List<Solicitudes> obtenerTodos(){
-        List<Solicitudes> salida = new ArrayList();
+    public List<PasoRequisito> obtenerTodos(){
+        List<PasoRequisito> salida = new ArrayList();
             try {
-                if (ejbSolicitudes != null) {
-                    salida = ejbSolicitudes.findAll();
+                if (ejbPasoRequisito != null) {
+                    salida = ejbPasoRequisito.findAll();
                 }
             } catch (Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
@@ -103,29 +122,30 @@ public class FrmSolicitudesPrime implements Serializable{
             return salida;
         }
     
+       
     @PostConstruct
     private void inicio(){
         
-        registro = new Solicitudes();
+        registro = new PasoRequisito();
         
         try {
             
-            modelo = new LazyDataModel<Solicitudes>() {
+            modelo = new LazyDataModel<PasoRequisito>() {
                 @Override
-                public Object getRowKey(Solicitudes object){
+                public Object getRowKey(PasoRequisito object){
                     if(object != null){
-                        return object.getIdSolicitud();
+                        return object.getIdPasoRequisito();
                     }
                     return null;
                 }
                 
                 @Override
-                public  Solicitudes getRowData(String rowKey){
+                public  PasoRequisito getRowData(String rowKey){
                     if(rowKey != null && !rowKey.isEmpty() && this.getWrappedData() != null){
                         try {
                             Integer buscado = new Integer(rowKey);
-                            for (Solicitudes thi : (List<Solicitudes>) getWrappedData()) {
-                                if(thi.getIdSolicitud().compareTo(buscado)  == 0){
+                            for (PasoRequisito thi : (List<PasoRequisito>) getWrappedData()) {
+                                if(thi.getIdPasoRequisito().compareTo(buscado)  == 0){
                                     return thi;
                                 }
                             }
@@ -137,14 +157,14 @@ public class FrmSolicitudesPrime implements Serializable{
                 }
                 
                 @Override
-                public List<Solicitudes> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-                    List<Solicitudes> salida = new ArrayList(); 
+                public List<PasoRequisito> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+                    List<PasoRequisito> salida = new ArrayList(); 
                     
                     if (filters == null || filters.isEmpty()) {
                     try {
-                        if(ejbSolicitudes != null){
-                            this.setRowCount(ejbSolicitudes.count());
-                            salida= ejbSolicitudes.findRange(first,pageSize);
+                        if(ejbPasoRequisito != null){
+                            this.setRowCount(ejbPasoRequisito.count());
+                            salida= ejbPasoRequisito.findRange(first,pageSize);
                         }
                     } catch (Exception e) {
                          Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
@@ -153,39 +173,34 @@ public class FrmSolicitudesPrime implements Serializable{
                 }
                 salida = null;
                     try {
-                        if (!filters.isEmpty() && (filters.containsKey("idSolicitud")||filters.containsKey("carnet")||filters.containsKey("nit")||filters.containsKey("fechaRecibida")||filters.containsKey("usuario")||filters.containsKey("descripcionSolicitud"))) {
+                        if (!filters.isEmpty() && (filters.containsKey("idPasoRequisito")||filters.containsKey("idRequisito")||filters.containsKey("idPaso")||filters.containsKey("indice"))) {
                             
-                            if(filters.containsKey("idSolicitud")){
-                                salida = ejbSolicitudes.findBy("idSolicitud", filters.get("idSolicitud").toString(), first, pageSize);
+                            if(filters.containsKey("idPasoRequisito")){
+                                salida = ejbPasoRequisito.findBy("idPasoRequisito", filters.get("idPasoRequisito").toString(), first, pageSize);
                             if (modelo != null) {
                                 modelo.setRowCount(salida.size());
                             }
                             
-                            } else if(filters.containsKey("carnet")){
-                                salida = ejbSolicitudes.findBy("carnet", filters.get("carnet").toString(), first, pageSize);
+                            } else if(filters.containsKey("idRequisito")){
+                                salida = ejbPasoRequisito.filtroForaneo("idRequisito", "nombre", filters.get("idRequisito").toString(), first, pageSize);
                             if (modelo != null) {
                                 modelo.setRowCount(salida.size());
                             }
-                            } else if(filters.containsKey("nit")){
-                                salida = ejbSolicitudes.findBy("nit", filters.get("nit").toString(), first, pageSize);
+                            
+                           
+                            } else if(filters.containsKey("idPaso")){
+                                salida = ejbPasoRequisito.filtroForaneo("idPaso", "nombre", filters.get("idPaso").toString(), first, pageSize);
                             if (modelo != null) {
                                 modelo.setRowCount(salida.size());
                             }
-                            } else if(filters.containsKey("fechaRecibida")){
-                                salida = ejbSolicitudes.findBy("fechaRecibida", filters.get("fechaRecibida").toString(), first, pageSize);
+                            
+                            }
+                            else if(filters.containsKey("indice")){
+                                salida = ejbPasoRequisito.findBy("indice", filters.get("indice").toString(), first, pageSize);
                             if (modelo != null) {
                                 modelo.setRowCount(salida.size());
                             }
-                            } else if(filters.containsKey("usuario")){
-                                salida = ejbSolicitudes.findBy("usuario", filters.get("usuario").toString(), first, pageSize);
-                            if (modelo != null) {
-                                modelo.setRowCount(salida.size());
-                            }} else if(filters.containsKey("descripcionSolicitud")){
-                                salida = ejbSolicitudes.findBy("descripcionSolicitud", filters.get("descripcionSolicitud").toString(), first, pageSize);
-                            if (modelo != null) {
-                                modelo.setRowCount(salida.size());
-                            }
-         
+                            
                             }
                         }
                     } catch (Exception ex) {
@@ -204,20 +219,20 @@ public class FrmSolicitudesPrime implements Serializable{
         }
     }
     
-    public void nuevo() {
-        this.registro = new Solicitudes();
+        public void nuevo() {
+        this.registro = new PasoRequisito();
             setBtnadd(true);
             setBtnedit(false);
             setBtnremove(false);
+            setFrmcrudsts(false);
     }
     
     public void crearRegistro(){
-        //&& this.registro.getFechaRecibida().toString().isEmpty() != true
-    if(this.registro.getCarnet().isEmpty() != true && this.registro.getNit() != 0 && this.registro.getUsuario() != 0 && this.registro.getDescripcionSolicitud().isEmpty() != true && this.registro.getCarnet() != null && this.registro.getFechaRecibida()!= null && this.registro.getDescripcionSolicitud() != null) {
+    if(this.registro.getIndice() != 0) {
 
         try {
-            if(this.ejbSolicitudes != null && this.registro != null){
-                this.ejbSolicitudes.create(registro);
+            if(this.ejbPasoRequisito != null && this.registro != null){
+                this.ejbPasoRequisito.create(registro);
                 nuevo();
                 mensaje.msgCreadoExito();
             }
@@ -232,8 +247,8 @@ public class FrmSolicitudesPrime implements Serializable{
 
     public void eliminar() {
         try {
-            if (this.ejbSolicitudes != null && registro != null) {
-                ejbSolicitudes.remove(this.registro);
+            if (this.ejbPasoRequisito != null && registro != null) {
+                ejbPasoRequisito.remove(this.registro);
                 nuevo();
                 mensaje.msgEliminacion();
             }
@@ -243,11 +258,11 @@ public class FrmSolicitudesPrime implements Serializable{
     }
     
     public void editarRegistro(){
-           //&& this.registro.getFechaRecibida().toString().isEmpty() != true
-    if(this.registro.getCarnet().isEmpty() != true && this.registro.getNit() != 0 && this.registro.getUsuario() != 0 && this.registro.getDescripcionSolicitud().isEmpty() != true && this.registro.getCarnet() != null && this.registro.getFechaRecibida()!= null && this.registro.getDescripcionSolicitud() != null) {
+        if(this.registro.getIndice() != 0) {
+
 	    try{
-		if(this.registro != null && this.ejbSolicitudes != null){
-		    this.ejbSolicitudes.edit(registro);
+		if(this.registro != null && this.ejbPasoRequisito != null){
+		    this.ejbPasoRequisito.edit(registro);
                      nuevo();
                      mensaje.msgModificacion();
 		}
@@ -261,10 +276,11 @@ public class FrmSolicitudesPrime implements Serializable{
 	}
     
     public void cambiarSeleccion(SelectEvent e){
-      this.registro=(Solicitudes)e.getObject();
+      this.registro=(PasoRequisito)e.getObject();
       setBtnedit(true);
       setBtnremove(true);
       setBtnadd(false);
+      setFrmcrudsts(false);
     }
 
     /**
@@ -321,6 +337,20 @@ public class FrmSolicitudesPrime implements Serializable{
      */
     public void setFrmcrud(boolean frmcrud) {
         this.frmcrud = frmcrud;
+    }
+    
+        /**
+     * @return the frmcrudsts
+     */
+    public boolean isFrmcrudsts() {
+        return frmcrudsts;
+    }
+
+    /**
+     * @param frmcrudsts the frmcrudsts to set
+     */
+    public void setFrmcrudsts(boolean frmcrudsts) {
+        this.frmcrudsts = frmcrudsts;
     }
     
 }

@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:co="http://xmlns.jcp.org/jsf/composite/composite"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Caso Detalle Requisito</title>
+    </h:head>
+    <h:body>
+        
+        <ui:composition template="../templates/templateprime.xhtml">
+            <ui:define name="content">
+        
+                <f:view>
+
+
+                    <h:form id="frm-casodetallerequisito">
+                        <h1 class="titulo"><h:outputText value="Caso Detalle Requisito"/></h1>
+                        <p:dataTable value="#{frmCasoDetalleRequisitoPrime.modelo}" id="tb-casodetallerequisito" class="tableclass"
+                                     var="item" 
+                                     lazy="true"
+                                     paginator="true"
+                                     rows="5"
+                                     rowsPerPageTemplate="5,10,15"
+                                     paginatorPosition="bottom"
+                                     selectionMode="single"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     >
+                            <p:ajax update=":frm-crud" event="rowSelect" listener="#{frmCasoDetalleRequisitoPrime.cambiarSeleccion}"/>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="IdCasoDR"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCasoDR}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="IdPasoRequisito"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idPasoRequisito}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="EstadoRequisito"/>
+                                </f:facet>
+                                <h:outputText value="#{item.estadoRequisito}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Fecha"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fecha}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="IdCasoDetalle"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCasoDetalle.idCasoDetalle}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+                
+                <f:view>
+                    
+                    <h:form id="frm-crud" >
+                        <p:growl id="msgs" showDetail="true" />
+
+                        <p:fieldset legend="Datos" class="contdatos">
+                        <h1><h:outputText value="Create/Edit"/></h1>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="IdCasoDR:" for="idCasoDR" />
+                            <p:inputText id="idCasoDR" value="#{frmCasoDetalleRequisitoPrime.registro.idCasoDR}" title="IdCasoDR" />
+                            <p:outputLabel value="IdPasoRequisito:" for="idPasoRequisito" />
+                            <p:inputText id="idPasoRequisito" value="#{frmCasoDetalleRequisitoPrime.registro.idPasoRequisito}" title="IdPasoRequisito" />
+                            <p:outputLabel value="EstadoRequisito:" for="estadoRequisito" />
+                            <p:inputText id="estadoRequisito" value="#{frmCasoDetalleRequisitoPrime.registro.estadoRequisito}" title="EstadoRequisito" />
+                            <p:outputLabel value="Fecha:" for="fecha" />
+                            <p:inputText id="fecha" value="#{frmCasoDetalleRequisitoPrime.registro.fecha}" title="Fecha" >
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </p:inputText>
+                            <p:outputLabel value="IdCasoDetalle:" for="idCasoDetalle" />
+                            <p:selectOneMenu id="idCasoDetalle" value="#{frmCasoDetalleRequisitoPrime.registro.idCasoDetalle}" converter="omnifaces.SelectItemsConverter" >
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItems value="#{frmCasoDetallePrime.obtenerTodos()}" var="c" itemLabel="#{c.idCasoDetalle}" itemValue="#{c}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <co:crudBtns clase="#{frmCasoDetalleRequisitoPrime}" update=":frm-casodetallerequisito:tb-casodetallerequisito :frm-crud"/>
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                        </p:fieldset>
+                    </h:form>
+                </f:view>
+
+                
+                </ui:define>
+        </ui:composition>
+                
+    </h:body>
+</html>
+

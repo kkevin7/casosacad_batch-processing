@@ -31,7 +31,7 @@ CREATE TABLE `caso` (
   KEY `idProceso` (`idProceso`),
   CONSTRAINT `Caso_ibfk_1` FOREIGN KEY (`idSolicitud`) REFERENCES `solicitudes` (`idSolicitud`),
   CONSTRAINT `Caso_ibfk_2` FOREIGN KEY (`idProceso`) REFERENCES `proceso` (`idProceso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -40,6 +40,7 @@ CREATE TABLE `caso` (
 
 LOCK TABLES `caso` WRITE;
 /*!40000 ALTER TABLE `caso` DISABLE KEYS */;
+INSERT INTO `caso` VALUES (1,1,1);
 /*!40000 ALTER TABLE `caso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -59,7 +60,7 @@ CREATE TABLE `caso_detalle` (
   PRIMARY KEY (`idCasoDetalle`),
   KEY `IdCaso` (`IdCaso`),
   CONSTRAINT `Caso_detalle_ibfk_1` FOREIGN KEY (`IdCaso`) REFERENCES `caso` (`IdCaso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -68,6 +69,7 @@ CREATE TABLE `caso_detalle` (
 
 LOCK TABLES `caso_detalle` WRITE;
 /*!40000 ALTER TABLE `caso_detalle` DISABLE KEYS */;
+INSERT INTO `caso_detalle` VALUES (1,1,'1',1,'2012-12-12'),(2,1,'1',2,'2012-12-12');
 /*!40000 ALTER TABLE `caso_detalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -88,7 +90,7 @@ CREATE TABLE `caso_detalle_requisito` (
   KEY `idCasoDetalle` (`idCasoDetalle`),
   KEY `idPasoRequisito` (`idPasoRequisito`),
   CONSTRAINT `Caso_detalle_requisito_ibfk_1` FOREIGN KEY (`idCasoDetalle`) REFERENCES `caso_detalle` (`idCasoDetalle`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -97,6 +99,7 @@ CREATE TABLE `caso_detalle_requisito` (
 
 LOCK TABLES `caso_detalle_requisito` WRITE;
 /*!40000 ALTER TABLE `caso_detalle_requisito` DISABLE KEYS */;
+INSERT INTO `caso_detalle_requisito` VALUES (1,1,1,'1','2012-12-12'),(2,2,1,'1','2012-12-12');
 /*!40000 ALTER TABLE `caso_detalle_requisito` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -115,7 +118,7 @@ CREATE TABLE `db_cdra` (
   PRIMARY KEY (`idCDRA`),
   KEY `IdCDR` (`IdCasoDR`),
   CONSTRAINT `DB_CDRA_ibfk_1` FOREIGN KEY (`IdCasoDR`) REFERENCES `caso_detalle_requisito` (`idCasoDR`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -124,6 +127,7 @@ CREATE TABLE `db_cdra` (
 
 LOCK TABLES `db_cdra` WRITE;
 /*!40000 ALTER TABLE `db_cdra` DISABLE KEYS */;
+INSERT INTO `db_cdra` VALUES (1,1,'2012-12-12','1'),(2,2,'2012-12-12','ummsote');
 /*!40000 ALTER TABLE `db_cdra` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -173,7 +177,7 @@ CREATE TABLE `paso_requisito` (
   KEY `idPaso` (`idPaso`),
   CONSTRAINT `Paso_requisito_ibfk_1` FOREIGN KEY (`idPaso`) REFERENCES `paso` (`idPaso`),
   CONSTRAINT `Paso_requisito_ibfk_2` FOREIGN KEY (`idRequisito`) REFERENCES `requisito` (`idRequisito`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -182,6 +186,7 @@ CREATE TABLE `paso_requisito` (
 
 LOCK TABLES `paso_requisito` WRITE;
 /*!40000 ALTER TABLE `paso_requisito` DISABLE KEYS */;
+INSERT INTO `paso_requisito` VALUES (1,1,4,1),(2,2,1,2),(3,1,1,3),(4,2,4,2);
 /*!40000 ALTER TABLE `paso_requisito` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -197,7 +202,7 @@ CREATE TABLE `proceso` (
   `Nombre` varchar(50) NOT NULL,
   `Descripcion` text NOT NULL,
   PRIMARY KEY (`idProceso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -206,6 +211,7 @@ CREATE TABLE `proceso` (
 
 LOCK TABLES `proceso` WRITE;
 /*!40000 ALTER TABLE `proceso` DISABLE KEYS */;
+INSERT INTO `proceso` VALUES (1,'Nuevo','Es nuevo');
 /*!40000 ALTER TABLE `proceso` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -226,7 +232,7 @@ CREATE TABLE `proceso_detalle` (
   KEY `idPaso` (`idPaso`),
   CONSTRAINT `Proceso_detalle_ibfk_1` FOREIGN KEY (`idProceso`) REFERENCES `proceso` (`idProceso`),
   CONSTRAINT `Proceso_detalle_ibfk_2` FOREIGN KEY (`idPaso`) REFERENCES `paso` (`idPaso`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -235,6 +241,7 @@ CREATE TABLE `proceso_detalle` (
 
 LOCK TABLES `proceso_detalle` WRITE;
 /*!40000 ALTER TABLE `proceso_detalle` DISABLE KEYS */;
+INSERT INTO `proceso_detalle` VALUES (1,1,1,1);
 /*!40000 ALTER TABLE `proceso_detalle` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -282,7 +289,7 @@ CREATE TABLE `solicitudes` (
   `Usuario` int(5) NOT NULL,
   `DescripcionSolicitud` text NOT NULL,
   PRIMARY KEY (`idSolicitud`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -291,6 +298,7 @@ CREATE TABLE `solicitudes` (
 
 LOCK TABLES `solicitudes` WRITE;
 /*!40000 ALTER TABLE `solicitudes` DISABLE KEYS */;
+INSERT INTO `solicitudes` VALUES (1,'CB14002',1312951012,'0012-12-12',1,'Pepe');
 /*!40000 ALTER TABLE `solicitudes` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -333,7 +341,7 @@ CREATE TABLE `tipo_requisito` (
   `activo` tinyint(1) NOT NULL,
   `observaciones` text NOT NULL,
   PRIMARY KEY (`idTipoRequisito`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=9 DEFAULT CHARSET=utf8;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -342,7 +350,7 @@ CREATE TABLE `tipo_requisito` (
 
 LOCK TABLES `tipo_requisito` WRITE;
 /*!40000 ALTER TABLE `tipo_requisito` DISABLE KEYS */;
-INSERT INTO `tipo_requisito` VALUES (1,'Administrativo',0,'Es manejado por el área administrativa de la institución.'),(2,'Academico',0,'Es manejado por el área académica de la institución.'),(3,'Institucional',0,'La institución debe proveerlos.'),(4,'Gubernamental',0,'Son externos a la institución.'),(5,'Legal',0,'Todo documentos legal debe ser notariado.');
+INSERT INTO `tipo_requisito` VALUES (1,'Administrativo',0,'Es manejado por el área administrativa de la institución.'),(2,'Academico',0,'Es manejado por el área académica de la institución.'),(3,'Institucional',0,'La institución debe proveerlos.'),(4,'Gubernamental',0,'Son externos a la institución.'),(5,'Legal',0,'Todo documentos legal debe ser notariado.'),(6,'VOy a mojar',1,'PERO BIEN PERRON!'),(7,'ASDL,',1,'AOSDK'),(8,'ASDIJ',0,'APOKSD');
 /*!40000 ALTER TABLE `tipo_requisito` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -355,4 +363,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2017-04-24 18:26:49
+-- Dump completed on 2017-04-26 12:07:13

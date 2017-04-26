@@ -32,11 +32,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @NamedQueries({
     @NamedQuery(name = "TipoPaso.findAll", query = "SELECT t FROM TipoPaso t")
     , @NamedQuery(name = "TipoPaso.findByIdTipoPaso", query = "SELECT t FROM TipoPaso t WHERE t.idTipoPaso = :idTipoPaso")
-    , @NamedQuery(name = "TipoPaso.findByNombre", query = "SELECT t FROM TipoPaso t WHERE t.nombre = :nombre")})
+    , @NamedQuery(name = "TipoPaso.findByNombre", query = "SELECT t FROM TipoPaso t WHERE t.nombre = :nombre")
+    , @NamedQuery(name = "TipoPaso.findByActivo", query = "SELECT t FROM TipoPaso t WHERE t.activo = :activo")})
 public class TipoPaso implements Serializable {
-
-    @Column(name = "activo")
-    private Boolean activo;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -51,6 +49,8 @@ public class TipoPaso implements Serializable {
     @Lob
     @Column(name = "Descripcion", nullable = false, length = 65535)
     private String descripcion;
+    @Column(name = "activo")
+    private Boolean activo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoPaso")
     private List<Paso> pasoList;
 
@@ -91,6 +91,14 @@ public class TipoPaso implements Serializable {
         this.descripcion = descripcion;
     }
 
+    public Boolean getActivo() {
+        return activo;
+    }
+
+    public void setActivo(Boolean activo) {
+        this.activo = activo;
+    }
+
     @XmlTransient
     public List<Paso> getPasoList() {
         return pasoList;
@@ -123,14 +131,6 @@ public class TipoPaso implements Serializable {
     @Override
     public String toString() {
         return "com.uesocc.entities.casosAcad.TipoPaso[ idTipoPaso=" + idTipoPaso + " ]";
-    }
-
-    public Boolean getActivo() {
-        return activo;
-    }
-
-    public void setActivo(Boolean activo) {
-        this.activo = activo;
     }
     
 }

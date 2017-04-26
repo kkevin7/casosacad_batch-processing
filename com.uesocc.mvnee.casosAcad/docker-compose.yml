@@ -10,7 +10,7 @@ services:
         ports:
         - '3306:3306'
         volumes:
-        - /mysqlx:/var/lib/mysql
+        - /mysqlacad:/var/lib/mysql
     paycons: 
         image: 'ownpayara'
         build: ./payara/.   

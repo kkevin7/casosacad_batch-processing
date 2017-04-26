@@ -3,7 +3,7 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ues.part2.otrosfrmprimes;
+package ues.casosAcad.prime.beans;
 
 import com.uesocc.entities.casosAcad.Caso;
 import com.uesocc.facades.casosAcad.CasoFacadeLocal;
@@ -20,9 +20,6 @@ import javax.faces.view.ViewScoped;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
-/*--------- Borrar esta linea al unirlo-------------------*/
-import ues.casosAcad.prime.beans.MensajesFormularios;
-/*-------------------------------------------------------*/
 
 /**
  *
@@ -43,6 +40,7 @@ public class FrmCasoPrime implements Serializable{
     private boolean btnedit = false; //encapsulado
     private boolean btnremove = false; //encapsulado
     private boolean frmcrud = false; //encapsulado
+    private boolean frmcrudsts = true; // encapsulado
     
     private LazyDataModel<Caso> modelo;
     private Caso registro;
@@ -50,6 +48,78 @@ public class FrmCasoPrime implements Serializable{
     MensajesFormularios mensaje = new MensajesFormularios(); //Mensajes de validacion
     
     /*-------Getter and Setter --------*/
+
+    public CasoFacadeLocal getEjbCaso() {
+        return ejbCaso;
+    }
+
+    public void setEjbCaso(CasoFacadeLocal ejbCaso) {
+        this.ejbCaso = ejbCaso;
+    }
+
+    public boolean isBtnadd() {
+        return btnadd;
+    }
+
+    public void setBtnadd(boolean btnadd) {
+        this.btnadd = btnadd;
+    }
+
+    public boolean isBtnedit() {
+        return btnedit;
+    }
+
+    public void setBtnedit(boolean btnedit) {
+        this.btnedit = btnedit;
+    }
+
+    public boolean isBtnremove() {
+        return btnremove;
+    }
+
+    public void setBtnremove(boolean btnremove) {
+        this.btnremove = btnremove;
+    }
+
+    public boolean isFrmcrud() {
+        return frmcrud;
+    }
+
+    public void setFrmcrud(boolean frmcrud) {
+        this.frmcrud = frmcrud;
+    }
+
+    public boolean isFrmcrudsts() {
+        return frmcrudsts;
+    }
+
+    public void setFrmcrudsts(boolean frmcrudsts) {
+        this.frmcrudsts = frmcrudsts;
+    }
+
+    public LazyDataModel<Caso> getModelo() {
+        return modelo;
+    }
+
+    public void setModelo(LazyDataModel<Caso> modelo) {
+        this.modelo = modelo;
+    }
+
+    public Caso getRegistro() {
+        return registro;
+    }
+
+    public void setRegistro(Caso registro) {
+        this.registro = registro;
+    }
+
+    public MensajesFormularios getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(MensajesFormularios mensaje) {
+        this.mensaje = mensaje;
+    }
     
     
     
@@ -122,7 +192,7 @@ public class FrmCasoPrime implements Serializable{
                 }
                 salida = null;
                     try {
-                        if (!filters.isEmpty() && (filters.containsKey("idCaso")||filters.containsKey("nombre")||filters.containsKey("descripcion"))) {
+                        if (!filters.isEmpty() && (filters.containsKey("idCaso")||filters.containsKey("idSolicitud")||filters.containsKey("idProceso"))) {
                             
                             if(filters.containsKey("idCaso")){
                                 salida = ejbCaso.findBy("idCaso", filters.get("idCaso").toString(), first, pageSize);
@@ -130,16 +200,17 @@ public class FrmCasoPrime implements Serializable{
                                 modelo.setRowCount(salida.size());
                             }
                             
-//                            } else if(filters.containsKey("nombre")){
-//                                salida = ejbCaso.findBy("nombre", filters.get("nombre").toString(), first, pageSize);
-//                            if (modelo != null) {
-//                                modelo.setRowCount(salida.size());
-//                            }
-//                            } else if(filters.containsKey("descripcion")){
-//                                salida = ejbCaso.findBy("descripcion", filters.get("descripcion").toString(), first, pageSize);
-//                            if (modelo != null) {
-//                                modelo.setRowCount(salida.size());
-//                            }
+                            } else if(filters.containsKey("idSolicitud")){
+                                salida = ejbCaso.filtroForaneo("idSolicitud", "descripcionSolicitud", filters.get("idSolicitud").toString(), first, pageSize);
+                            if (modelo != null) {
+                                modelo.setRowCount(salida.size());
+                            }
+
+                            } else if(filters.containsKey("idProceso")){
+                                salida = ejbCaso.filtroForaneo("idProceso", "nombre", filters.get("idProceso").toString(), first, pageSize);
+                            if (modelo != null) {
+                                modelo.setRowCount(salida.size());
+                            }
                             }
                         }
                     } catch (Exception ex) {
@@ -163,6 +234,7 @@ public class FrmCasoPrime implements Serializable{
             setBtnadd(true);
             setBtnedit(false);
             setBtnremove(false);
+            setFrmcrudsts(false);
     }
     
     public void crearRegistro(){
@@ -218,62 +290,8 @@ public class FrmCasoPrime implements Serializable{
       setBtnedit(true);
       setBtnremove(true);
       setBtnadd(false);
+      setFrmcrudsts(false);
     }
 
-    /**
-     * @return the btnadd
-     */
-    public boolean isBtnadd() {
-        return btnadd;
-    }
-
-    /**
-     * @param btnadd the btnadd to set
-     */
-    public void setBtnadd(boolean btnadd) {
-        this.btnadd = btnadd;
-    }
-
-    /**
-     * @return the btnedit
-     */
-    public boolean isBtnedit() {
-        return btnedit;
-    }
-
-    /**
-     * @param btnedit the btnedit to set
-     */
-    public void setBtnedit(boolean btnedit) {
-        this.btnedit = btnedit;
-    }
-
-    /**
-     * @return the btnremove
-     */
-    public boolean isBtnremove() {
-        return btnremove;
-    }
-
-    /**
-     * @param btnremove the btnremove to set
-     */
-    public void setBtnremove(boolean btnremove) {
-        this.btnremove = btnremove;
-    }
-
-    /**
-     * @return the frmcrud
-     */
-    public boolean isFrmcrud() {
-        return frmcrud;
-    }
-
-    /**
-     * @param frmcrud the frmcrud to set
-     */
-    public void setFrmcrud(boolean frmcrud) {
-        this.frmcrud = frmcrud;
-    }
     
 }

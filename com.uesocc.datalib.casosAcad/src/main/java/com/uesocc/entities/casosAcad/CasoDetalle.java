@@ -37,13 +37,9 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "CasoDetalle.findAll", query = "SELECT c FROM CasoDetalle c")
     , @NamedQuery(name = "CasoDetalle.findByIdCasoDetalle", query = "SELECT c FROM CasoDetalle c WHERE c.idCasoDetalle = :idCasoDetalle")
     , @NamedQuery(name = "CasoDetalle.findByEstado", query = "SELECT c FROM CasoDetalle c WHERE c.estado = :estado")
-    , @NamedQuery(name = "CasoDetalle.findByIdProcesDetalle", query = "SELECT c FROM CasoDetalle c WHERE c.idProcesDetalle = :idProcesDetalle")
+    , @NamedQuery(name = "CasoDetalle.findByIdProcesoDetalle", query = "SELECT c FROM CasoDetalle c WHERE c.idProcesoDetalle = :idProcesoDetalle")
     , @NamedQuery(name = "CasoDetalle.findByFecha", query = "SELECT c FROM CasoDetalle c WHERE c.fecha = :fecha")})
 public class CasoDetalle implements Serializable {
-
-    @Basic(optional = false)
-    @Column(name = "idProcesoDetalle", nullable = false)
-    private int idProcesoDetalle;
 
     private static final long serialVersionUID = 1L;
     @Id
@@ -55,8 +51,8 @@ public class CasoDetalle implements Serializable {
     @Column(name = "Estado", nullable = false, length = 10)
     private String estado;
     @Basic(optional = false)
-    @Column(name = "idProcesDetalle", nullable = false)
-    private int idProcesDetalle;
+    @Column(name = "idProcesoDetalle", nullable = false)
+    private int idProcesoDetalle;
     @Basic(optional = false)
     @Column(name = "Fecha", nullable = false)
     @Temporal(TemporalType.DATE)
@@ -74,10 +70,10 @@ public class CasoDetalle implements Serializable {
         this.idCasoDetalle = idCasoDetalle;
     }
 
-    public CasoDetalle(Integer idCasoDetalle, String estado, int idProcesDetalle, Date fecha) {
+    public CasoDetalle(Integer idCasoDetalle, String estado, int idProcesoDetalle, Date fecha) {
         this.idCasoDetalle = idCasoDetalle;
         this.estado = estado;
-        this.idProcesDetalle = idProcesDetalle;
+        this.idProcesoDetalle = idProcesoDetalle;
         this.fecha = fecha;
     }
 
@@ -97,12 +93,12 @@ public class CasoDetalle implements Serializable {
         this.estado = estado;
     }
 
-    public int getIdProcesDetalle() {
-        return idProcesDetalle;
+    public int getIdProcesoDetalle() {
+        return idProcesoDetalle;
     }
 
-    public void setIdProcesDetalle(int idProcesDetalle) {
-        this.idProcesDetalle = idProcesDetalle;
+    public void setIdProcesoDetalle(int idProcesoDetalle) {
+        this.idProcesoDetalle = idProcesoDetalle;
     }
 
     public Date getFecha() {
@@ -153,14 +149,6 @@ public class CasoDetalle implements Serializable {
     @Override
     public String toString() {
         return "com.uesocc.entities.casosAcad.CasoDetalle[ idCasoDetalle=" + idCasoDetalle + " ]";
-    }
-
-    public int getIdProcesoDetalle() {
-        return idProcesoDetalle;
-    }
-
-    public void setIdProcesoDetalle(int idProcesoDetalle) {
-        this.idProcesoDetalle = idProcesoDetalle;
     }
     
 }

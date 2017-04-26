@@ -14,6 +14,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -32,8 +33,7 @@ import javax.xml.bind.annotation.XmlTransient;
     @NamedQuery(name = "TipoRequisito.findAll", query = "SELECT t FROM TipoRequisito t")
     , @NamedQuery(name = "TipoRequisito.findByIdTipoRequisito", query = "SELECT t FROM TipoRequisito t WHERE t.idTipoRequisito = :idTipoRequisito")
     , @NamedQuery(name = "TipoRequisito.findByNombre", query = "SELECT t FROM TipoRequisito t WHERE t.nombre = :nombre")
-    , @NamedQuery(name = "TipoRequisito.findByActivo", query = "SELECT t FROM TipoRequisito t WHERE t.activo = :activo")
-    , @NamedQuery(name = "TipoRequisito.findByObservaciones", query = "SELECT t FROM TipoRequisito t WHERE t.observaciones = :observaciones")})
+    , @NamedQuery(name = "TipoRequisito.findByActivo", query = "SELECT t FROM TipoRequisito t WHERE t.activo = :activo")})
 public class TipoRequisito implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,7 +49,8 @@ public class TipoRequisito implements Serializable {
     @Column(name = "activo", nullable = false)
     private boolean activo;
     @Basic(optional = false)
-    @Column(name = "observaciones", nullable = false, length = 100)
+    @Lob
+    @Column(name = "observaciones", nullable = false, length = 65535)
     private String observaciones;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoRequisito")
     private List<Requisito> requisitoList;

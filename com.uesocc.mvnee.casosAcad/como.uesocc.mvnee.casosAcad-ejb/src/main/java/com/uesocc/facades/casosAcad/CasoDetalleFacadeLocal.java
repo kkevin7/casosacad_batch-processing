@@ -6,7 +6,6 @@
 package com.uesocc.facades.casosAcad;
 
 import com.uesocc.entities.casosAcad.CasoDetalle;
-import java.util.List;
 import javax.ejb.Local;
 
 /**

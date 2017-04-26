@@ -1,0 +1,100 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:co="http://xmlns.jcp.org/jsf/composite/composite"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+
+    <h:head>
+        <title>Facelet Title</title>
+    </h:head>
+    <h:body>
+       
+        <ui:composition template="../templates/templateprime.xhtml">
+            <ui:define name="content">
+        
+               <f:view>
+                    
+                    <h:form id="frm-casodetallerequisitoatestado">
+                        <h1 class="titulo"><h:outputText value="Caso Detalle Atestadp"/></h1>
+                        <p:dataTable value="#{frmCasoDetalleRequisitoAtestadoPrime.modelo}" id="tb-casodetallerequisitoatestado" class="tableclass"
+                                     var="item" 
+                                     lazy="true"
+                                     paginator="true"
+                                     rows="5"
+                                     rowsPerPageTemplate="5,10,15"
+                                     paginatorPosition="bottom"
+                                     selectionMode="single"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     >
+                            <p:ajax update=":frm-crud" event="rowSelect" listener="#{frmCasoDetalleRequisitoAtestadoPrime.cambiarSeleccion}"/>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="IdCDRA"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCDRA}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Descripcio"/>
+                                </f:facet>
+                                <h:outputText value="#{item.descripcion}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="IdCasoDR"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCasoDR.idCasoDR}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Fecha"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fecha}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+                
+                <f:view>
+                    
+                    <h:form id="frm-crud" >
+                        <p:growl id="msgs" showDetail="true" />
+
+                        <p:fieldset legend="Datos" class="contdatos">
+                        <h1><h:outputText value="Create/Edit"/></h1>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="idCDRA:" for="idCDRA" />
+                            <p:inputText id="idCDRA" value="#{frmCasoDetalleRequisitoAtestadoPrime.registro.idCDRA}" title="IdCDRA" disabled="true" readonly="true" />
+                            <p:outputLabel value="Descripcion:" for="descripcion" />
+                            <p:inputText id="descripcion" value="#{frmCasoDetalleRequisitoAtestadoPrime.registro.descripcion}" title="Descripcion" disabled="#{frmCasoDetalleRequisitoAtestadoPrime.frmcrudsts}"/>
+                            <p:outputLabel value="IdCasoDR:" for="idCasoDR" />
+                            <p:inputText id="fecha" value="#{frmCasoDetalleRequisitoAtestadoPrime.registro.fecha}" title="Fecha" disabled="#{frmCasoDetalleRequisitoAtestadoPrime.frmcrudsts}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </p:inputText>
+                            <p:outputLabel value="IdCasoDR:" for="idCasoDR" />
+                            <p:selectOneMenu id="idCasoDR" value="#{frmCasoDetalleRequisitoAtestadoPrime.registro.idCasoDR}" converter="omnifaces.SelectItemsConverter" >
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItems value="#{frmCasoDetalleRequisitoPrime.obtenerTodos()}" var="c" itemLabel="#{c.idCasoDR}" itemValue="#{c}"/>
+                            </p:selectOneMenu>
+                             </p:panelGrid>
+                        <co:crudBtns clase="#{frmCasoDetalleRequisitoAtestadoPrime}" update=":frm-casodetallerequisitoatestado:tb-casodetallerequisitoatestado :frm-crud"/>
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                        </p:fieldset>
+                    </h:form>
+                </f:view>
+
+                
+                
+                
+                </ui:define>
+        </ui:composition>
+             
+    </h:body>
+</html>
+

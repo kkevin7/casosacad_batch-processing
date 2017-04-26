@@ -3,13 +3,11 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ues.part2.otrosfrmprimes;
+package ues.casosAcad.prime.beans;
 
-import com.uesocc.entities.casosAcad.Paso;
-import com.uesocc.entities.casosAcad.PasoRequisito;
-import com.uesocc.facades.casosAcad.PasoFacadeLocal;
-import com.uesocc.facades.casosAcad.PasoRequisitoFacadeLocal;
-import com.uesocc.facades.casosAcad.RequisitoFacadeLocal;
+import com.uesocc.entities.casosAcad.Proceso;
+import com.uesocc.facades.casosAcad.ProcesoDetalleFacadeLocal;
+import com.uesocc.facades.casosAcad.ProcesoFacadeLocal;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -23,100 +21,79 @@ import javax.faces.view.ViewScoped;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
-/*--------- Borrar esta linea al unirlo-------------------*/
-import ues.casosAcad.prime.beans.MensajesFormularios;
-/*-------------------------------------------------------*/
+
 
 /**
  *
  * @author kevin
  */
-@Named(value = "frmPasoRequisito")
+@Named(value = "frmProcesoPrime")
 @ViewScoped
-public class FrmPasoRequisito implements Serializable{
+public class FrmProcesoPrime implements Serializable{
+
+    @EJB
+    private ProcesoFacadeLocal ejbProceso;
     
     @EJB
-    private PasoRequisitoFacadeLocal ejbPasoRequisito;
-    
-    @EJB
-    private PasoFacadeLocal ejbPaso2;
-    @EJB
-    private RequisitoFacadeLocal ejbRequisito2;
+    private ProcesoDetalleFacadeLocal ejbProcesoDetalle2;
     
     
     private boolean btnadd = false; //encapsulado
     private boolean btnedit = false; //encapsulado
     private boolean btnremove = false; //encapsulado
     private boolean frmcrud = false; //encapsulado
+    private boolean frmcrudsts = true; // encapsulado
     
-    private LazyDataModel<PasoRequisito> modelo;
-    private PasoRequisito registro;
+    private LazyDataModel<Proceso> modelo;
+    private Proceso registro;
     
     MensajesFormularios mensaje = new MensajesFormularios(); //Mensajes de validacion
     
     /*-------Getter and Setter --------*/
 
-    public PasoRequisitoFacadeLocal getEjbPasoRequisito() {
-        return ejbPasoRequisito;
+    public ProcesoFacadeLocal getEjbProceso() {
+        return ejbProceso;
     }
 
-    public void setEjbPasoRequisito(PasoRequisitoFacadeLocal ejbPasoRequisito) {
-        this.ejbPasoRequisito = ejbPasoRequisito;
+    public void setEjbProceso(ProcesoFacadeLocal ejbProceso) {
+        this.ejbProceso = ejbProceso;
     }
 
-    public PasoFacadeLocal getEjbPaso2() {
-        return ejbPaso2;
+    public ProcesoDetalleFacadeLocal getEjbProcesoDetalle2() {
+        return ejbProcesoDetalle2;
     }
 
-    public void setEjbPaso2(PasoFacadeLocal ejbPaso2) {
-        this.ejbPaso2 = ejbPaso2;
+    public void setEjbProcesoDetalle2(ProcesoDetalleFacadeLocal ejbProcesoDetalle2) {
+        this.ejbProcesoDetalle2 = ejbProcesoDetalle2;
     }
 
-    public RequisitoFacadeLocal getEjbRequisito2() {
-        return ejbRequisito2;
-    }
-
-    public void setEjbRequisito2(RequisitoFacadeLocal ejbRequisito2) {
-        this.ejbRequisito2 = ejbRequisito2;
-    }
-
-    public LazyDataModel<PasoRequisito> getModelo() {
+    public LazyDataModel<Proceso> getModelo() {
         return modelo;
     }
 
-    public void setModelo(LazyDataModel<PasoRequisito> modelo) {
+    public void setModelo(LazyDataModel<Proceso> modelo) {
         this.modelo = modelo;
     }
 
-    public PasoRequisito getRegistro() {
+    public Proceso getRegistro() {
         return registro;
     }
 
-    public void setRegistro(PasoRequisito registro) {
+    public void setRegistro(Proceso registro) {
         this.registro = registro;
     }
-
-    public MensajesFormularios getMensaje() {
-        return mensaje;
-    }
-
-    public void setMensaje(MensajesFormularios mensaje) {
-        this.mensaje = mensaje;
-    }
+      
+    /*-------End Getter and Setter ----------*/
     
-    
-    /*-------Getter and Setter --------*/
-    
-    
-    public FrmPasoRequisito() {
+    public FrmProcesoPrime() {
     }
     
     @Deprecated
-    public List<PasoRequisito> obtenerTodos(){
-        List<PasoRequisito> salida = new ArrayList();
+    public List<Proceso> obtenerTodos(){
+        List<Proceso> salida = new ArrayList();
             try {
-                if (ejbPasoRequisito != null) {
-                    salida = ejbPasoRequisito.findAll();
+                if (ejbProceso != null) {
+                    salida = ejbProceso.findAll();
                 }
             } catch (Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
@@ -124,30 +101,29 @@ public class FrmPasoRequisito implements Serializable{
             return salida;
         }
     
-       
     @PostConstruct
     private void inicio(){
         
-        registro = new PasoRequisito();
+        registro = new Proceso();
         
         try {
             
-            modelo = new LazyDataModel<PasoRequisito>() {
+            modelo = new LazyDataModel<Proceso>() {
                 @Override
-                public Object getRowKey(PasoRequisito object){
+                public Object getRowKey(Proceso object){
                     if(object != null){
-                        return object.getIdPasoRequisito();
+                        return object.getIdProceso();
                     }
                     return null;
                 }
                 
                 @Override
-                public  PasoRequisito getRowData(String rowKey){
+                public  Proceso getRowData(String rowKey){
                     if(rowKey != null && !rowKey.isEmpty() && this.getWrappedData() != null){
                         try {
                             Integer buscado = new Integer(rowKey);
-                            for (PasoRequisito thi : (List<PasoRequisito>) getWrappedData()) {
-                                if(thi.getIdPasoRequisito().compareTo(buscado)  == 0){
+                            for (Proceso thi : (List<Proceso>) getWrappedData()) {
+                                if(thi.getIdProceso().compareTo(buscado)  == 0){
                                     return thi;
                                 }
                             }
@@ -159,14 +135,14 @@ public class FrmPasoRequisito implements Serializable{
                 }
                 
                 @Override
-                public List<PasoRequisito> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-                    List<PasoRequisito> salida = new ArrayList(); 
+                public List<Proceso> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+                    List<Proceso> salida = new ArrayList(); 
                     
                     if (filters == null || filters.isEmpty()) {
                     try {
-                        if(ejbPasoRequisito != null){
-                            this.setRowCount(ejbPasoRequisito.count());
-                            salida= ejbPasoRequisito.findRange(first,pageSize);
+                        if(ejbProceso != null){
+                            this.setRowCount(ejbProceso.count());
+                            salida= ejbProceso.findRange(first,pageSize);
                         }
                     } catch (Exception e) {
                          Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
@@ -175,31 +151,21 @@ public class FrmPasoRequisito implements Serializable{
                 }
                 salida = null;
                     try {
-                        if (!filters.isEmpty() && (filters.containsKey("idPasoRequisito")||filters.containsKey("tiempo")||filters.containsKey("descripcion")||filters.containsKey("idTipoPaso"))) {
+                        if (!filters.isEmpty() && (filters.containsKey("idProceso")||filters.containsKey("nombre")||filters.containsKey("descripcion"))) {
                             
-                            if(filters.containsKey("idPasoRequisito")){
-                                salida = ejbPasoRequisito.findBy("idPasoRequsito", filters.get("idPasoRequisito").toString(), first, pageSize);
+                            if(filters.containsKey("idProceso")){
+                                salida = ejbProceso.findBy("idProceso", filters.get("idProceso").toString(), first, pageSize);
                             if (modelo != null) {
                                 modelo.setRowCount(salida.size());
                             }
                             
+                            } else if(filters.containsKey("nombre")){
+                                salida = ejbProceso.findBy("nombre", filters.get("nombre").toString(), first, pageSize);
+                            if (modelo != null) {
+                                modelo.setRowCount(salida.size());
+                            }
                             } else if(filters.containsKey("descripcion")){
-                                salida = ejbPasoRequisito.findBy("descripcion", filters.get("descripcion").toString(), first, pageSize);
-                            if (modelo != null) {
-                                modelo.setRowCount(salida.size());
-                            }
-                            
-                            //Tiempo
-                            } else if(filters.containsKey("tiempo")){
-                                salida = ejbPasoRequisito.findBy("tiempo", filters.get("tiempo").toString(), first, pageSize);
-                            if (modelo != null) {
-                                modelo.setRowCount(salida.size());
-                            }
-                            //fin tiempo
-                            
-                            }
-                            else if(filters.containsKey("idTipoPaso")){
-                                salida = ejbPasoRequisito.filtroForaneo("idTipoPaso", "nombre", filters.get("idTipoPaso").toString(), first, pageSize);
+                                salida = ejbProceso.findBy("descripcion", filters.get("descripcion").toString(), first, pageSize);
                             if (modelo != null) {
                                 modelo.setRowCount(salida.size());
                             }
@@ -221,19 +187,20 @@ public class FrmPasoRequisito implements Serializable{
         }
     }
     
-        public void nuevo() {
-        this.registro = new PasoRequisito();
+    public void nuevo() {
+        this.registro = new Proceso();
             setBtnadd(true);
             setBtnedit(false);
             setBtnremove(false);
+            setFrmcrudsts(false);
     }
     
     public void crearRegistro(){
-    if(this.registro.getIndice() != 0) {
+    if(this.registro.getDescripcion().isEmpty() != true && this.registro.getNombre().isEmpty() != true  && this.registro.getDescripcion()!= null && this.registro.getNombre()!= null) {
 
         try {
-            if(this.ejbPasoRequisito != null && this.registro != null){
-                this.ejbPasoRequisito.create(registro);
+            if(this.ejbProceso != null && this.registro != null){
+                this.ejbProceso.create(registro);
                 nuevo();
                 mensaje.msgCreadoExito();
             }
@@ -248,8 +215,8 @@ public class FrmPasoRequisito implements Serializable{
 
     public void eliminar() {
         try {
-            if (this.ejbPasoRequisito != null && registro != null) {
-                ejbPasoRequisito.remove(this.registro);
+            if (this.ejbProceso != null && registro != null) {
+                ejbProceso.remove(this.registro);
                 nuevo();
                 mensaje.msgEliminacion();
             }
@@ -259,11 +226,11 @@ public class FrmPasoRequisito implements Serializable{
     }
     
     public void editarRegistro(){
-        if(this.registro.getIndice() != 0) {
+        if(this.registro.getDescripcion().isEmpty() != true && this.registro.getNombre().isEmpty() != true  && this.registro.getDescripcion()!= null && this.registro.getNombre()!= null) {
 
 	    try{
-		if(this.registro != null && this.ejbPasoRequisito != null){
-		    this.ejbPasoRequisito.edit(registro);
+		if(this.registro != null && this.ejbProceso != null){
+		    this.ejbProceso.edit(registro);
                      nuevo();
                      mensaje.msgModificacion();
 		}
@@ -277,10 +244,11 @@ public class FrmPasoRequisito implements Serializable{
 	}
     
     public void cambiarSeleccion(SelectEvent e){
-      this.registro=(PasoRequisito)e.getObject();
+      this.registro=(Proceso)e.getObject();
       setBtnedit(true);
       setBtnremove(true);
       setBtnadd(false);
+      setFrmcrudsts(false);
     }
 
     /**
@@ -337,6 +305,20 @@ public class FrmPasoRequisito implements Serializable{
      */
     public void setFrmcrud(boolean frmcrud) {
         this.frmcrud = frmcrud;
+    }
+    
+            /**
+     * @return the frmcrudsts
+     */
+    public boolean isFrmcrudsts() {
+        return frmcrudsts;
+    }
+
+    /**
+     * @param frmcrudsts the frmcrudsts to set
+     */
+    public void setFrmcrudsts(boolean frmcrudsts) {
+        this.frmcrudsts = frmcrudsts;
     }
     
 }

@@ -1,0 +1,103 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:co="http://xmlns.jcp.org/jsf/composite/composite"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Caso Detalle Prime</title>
+    </h:head>
+    <h:body>
+        
+        <ui:composition template="../templates/templateprime.xhtml">
+            <ui:define name="content">
+             
+                <f:view>
+                    
+                    <h:form id="frm-casodetalle">
+                        <h1 class="titulo"><h:outputText value="Caso Detalle"/></h1>
+                        <p:dataTable value="#{frmCasoDetallePrime.modelo}" id="tb-casodetalle" class="tableclass"
+                                     var="item" 
+                                     lazy="true"
+                                     paginator="true"
+                                     rows="5"
+                                     rowsPerPageTemplate="5,10,15"
+                                     paginatorPosition="bottom"
+                                     selectionMode="single"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     >
+                            <p:ajax update=":frm-crud" event="rowSelect" listener="#{frmCasoDetallePrime.cambiarSeleccion}"/>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="IdCasoDetalle"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCasoDetalle}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Estado"/>
+                                </f:facet>
+                                <h:outputText value="#{item.estado}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="IdProcesoDetalle"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idProcesoDetalle}"/>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="Fecha"/>
+                                </f:facet>
+                                <h:outputText value="#{item.fecha}">
+                                    <f:convertDateTime pattern="MM/dd/yyyy" />
+                                </h:outputText>
+                            </p:column>
+                            <p:column>
+                                <f:facet name="header">
+                                    <h:outputText value="IdCaso"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCasoDetalle}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+                
+                <f:view>
+                    
+                    <h:form id="frm-crud" >
+                        <p:growl id="msgs" showDetail="true" />
+
+                        <p:fieldset legend="Datos" class="contdatos">
+                        <h1><h:outputText value="Create/Edit"/></h1>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="IdCasoDetalle:" for="idCasoDetalle" />
+                            <p:inputText id="idCasoDetalle" value="#{frmCasoDetallePrime.registro.idCasoDetalle}" title="IdCasoDetalle" disabled="true" readonly="true" />
+                            <p:outputLabel value="Estado:" for="estado" />
+                            <p:inputText id="estado" value="#{frmCasoDetallePrime.registro.estado}" title="Estado" disabled="#{frmCasoDetallePrime.frmcrudsts}"/>
+                            <p:outputLabel value="IdProcesoDetalle:" for="idProcesoDetalle" />
+                            <p:inputText id="idProcesoDetalle" value="#{frmCasoDetallePrime.registro.idProcesoDetalle}" title="IdProcesoDetalle" />
+                            <p:outputLabel value="Fecha:" for="fecha" />
+                            <p:inputText id="fecha" value="#{frmCasoDetallePrime.registro.fecha}" title="Fecha" disabled="#{frmCasoDetallePrime.frmcrudsts}">
+                                <f:convertDateTime pattern="MM/dd/yyyy" />
+                            </p:inputText>
+                            <p:outputLabel value="IdCaso:" for="idCaso" />
+                            <p:selectOneMenu id="idCaso" value="#{frmCasoDetallePrime.registro.idCaso}" converter="omnifaces.SelectItemsConverter" >
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItems value="#{frmCasoPrime.obtenerTodos()}" var="c" itemLabel="#{c.idCaso}" itemValue="#{c}"/>
+                            </p:selectOneMenu>
+                             </p:panelGrid>
+                        <co:crudBtns clase="#{frmCasoDetallePrime}" update=":frm-casodetalle:tb-casodetalle :frm-crud"/>
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                        </p:fieldset>
+                    </h:form>
+                </f:view>
+
+                
+                </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

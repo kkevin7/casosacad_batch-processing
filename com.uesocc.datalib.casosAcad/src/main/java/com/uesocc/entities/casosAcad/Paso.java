@@ -6,7 +6,9 @@
 package com.uesocc.entities.casosAcad;
 
 import java.io.Serializable;
+import java.util.List;
 import javax.persistence.Basic;
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -17,8 +19,10 @@ import javax.persistence.Lob;
 import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 /**
  *
@@ -50,9 +54,13 @@ public class Paso implements Serializable {
     @Basic(optional = false)
     @Column(name = "Nombre", nullable = false, length = 100)
     private String nombre;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPaso")
+    private List<ProcesoDetalle> procesoDetalleList;
     @JoinColumn(name = "idTipoPaso", referencedColumnName = "idTipoPaso", nullable = false)
     @ManyToOne(optional = false)
     private TipoPaso idTipoPaso;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idPaso")
+    private List<PasoRequisito> pasoRequisitoList;
 
     public Paso() {
     }
@@ -100,12 +108,30 @@ public class Paso implements Serializable {
         this.nombre = nombre;
     }
 
+    @XmlTransient
+    public List<ProcesoDetalle> getProcesoDetalleList() {
+        return procesoDetalleList;
+    }
+
+    public void setProcesoDetalleList(List<ProcesoDetalle> procesoDetalleList) {
+        this.procesoDetalleList = procesoDetalleList;
+    }
+
     public TipoPaso getIdTipoPaso() {
         return idTipoPaso;
     }
 
     public void setIdTipoPaso(TipoPaso idTipoPaso) {
         this.idTipoPaso = idTipoPaso;
+    }
+
+    @XmlTransient
+    public List<PasoRequisito> getPasoRequisitoList() {
+        return pasoRequisitoList;
+    }
+
+    public void setPasoRequisitoList(List<PasoRequisito> pasoRequisitoList) {
+        this.pasoRequisitoList = pasoRequisitoList;
     }
 
     @Override

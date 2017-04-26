@@ -39,6 +39,7 @@
                                 <p:inputTextarea id="observaciones" value="#{frmTipoRequisitoPrime.registro.observaciones}" title="Observaciones" disabled="#{frmTipoRequisitoPrime.frmcrudsts}" />
                             </p:panelGrid>
                             <co:crudBtns clase="#{frmTipoRequisitoPrime}" update=":frm-tr:cc-table:tb-tiporequisito :frm-crud"/>
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                         </p:fieldset>
                     </h:form>
                 </f:view>

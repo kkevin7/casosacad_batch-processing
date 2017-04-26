@@ -1,0 +1,105 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:co="http://xmlns.jcp.org/jsf/composite/composite"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Paso Requisito Tabs Menu</title>
+    </h:head>
+    <h:body>
+        
+        <ui:composition template="../templates/templatetabsmenu.xhtml">
+            <ui:define name="content">
+
+                <f:view>
+
+                    <h:form id="frm-pasorequisito">
+                        <h1 class="titulo"><h:outputText value="Paso Requisito"/></h1>
+                        <p:dataTable value="#{frmPasoRequisito.modelo}" id="tb-pasorequisito" class="tableclass"
+                                     var="item" 
+                                     lazy="true"
+                                     paginator="true"
+                                     rows="5"
+                                     rowsPerPageTemplate="5,10,15"
+                                     paginatorPosition="bottom"
+                                     selectionMode="single"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     >
+                            <p:ajax update=":frm-crud" event="rowSelect" listener="#{frmPasoRequisito.cambiarSeleccion}"/>
+                            <p:column filterBy="#{item.idPasoRequisito}" headerText="ID" class="colum-id">
+                                <f:facet name="header">
+                                    <h:outputText value="ID"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idPasoRequisito}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.indice}" headerText="Indice">
+                                <f:facet name="header">
+                                    <h:outputText value="Indice"/>
+                                </f:facet>
+                                <h:outputText value="#{item.indice}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.idPaso}" headerText="Pasos" groupRow="true">
+                                <f:facet name="header">
+                                    <h:outputText value="Paso"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idPaso.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.idRequisito}" headerText="Requisitos">
+                                <f:facet name="header">
+                                    <h:outputText value="Requisito"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idRequisito.nombre}"/>
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+
+                <f:view>
+
+                    <h:form id="frm-crud">
+                        <p:growl id="msgs" showDetail="true" />
+                        
+                        <p:tabView id="tabs" class="paneltabs">
+                        <p:tab title="Insertar">
+
+                        <p:fieldset legend="Datos" class="contdatos">
+                        <h1><h:outputText value="Create/Edit"/></h1>
+                        <p:panelGrid columns="2">
+                            <p:outputLabel value="IdPasoRequisito:" for="idPasoRequisito" />
+                            <p:inputText id="idPasoRequisito" value="#{frmPasoRequisito.registro.idPasoRequisito}" title="IdPasoRequisito" disabled="true" readonly="true"/>
+                            <p:outputLabel value="Indice:" for="indice" />
+                            <p:inputText id="indice" value="#{frmPasoRequisito.registro.indice}" title="Indice" disabled="#{frmPasoRequisito.frmcrudsts}" />
+                            <p:outputLabel value="Paso:" for="idPaso" />
+                            <p:selectOneMenu id="idPaso" value="#{frmPasoRequisito.registro.idPaso}" converter="omnifaces.SelectItemsConverter">
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItems value="#{frmPasoPrime.obtenerTodos()}" var="c" itemLabel="#{c.nombre}" itemValue="#{c}"/>
+                            </p:selectOneMenu>
+                            <p:outputLabel value="Requisito:" for="idRequisito" />
+                            <p:selectOneMenu id="idRequisito" value="#{frmPasoRequisito.registro.idRequisito}" converter="omnifaces.SelectItemsConverter">
+                                <!-- TODO: update below reference to list of available items-->
+                                <f:selectItems value="#{frmRequisitoPrime.obtenerTodos()}" var="c" itemLabel="#{c.nombre}" itemValue="#{c}"/>
+                            </p:selectOneMenu>
+                        </p:panelGrid>
+                        <co:crudBtns clase="#{frmPasoRequisito}" update=":frm-pasorequisito:tb-pasorequisito :frm-crud"/>
+                        <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
+                        </p:fieldset>
+                            
+                        </p:tab>
+                        <p:tab title="Multi-selection">
+                            
+                            
+                            
+                        </p:tab>
+                    </p:tabView>  
+                    </h:form>
+                </f:view>
+                
+                    </ui:define>
+        </ui:composition>
+        
+    </h:body>
+</html>
+

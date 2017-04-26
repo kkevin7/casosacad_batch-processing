@@ -3,11 +3,10 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package ues.part2.otrosfrmprimes;
+package ues.casosAcad.prime.beans;
 
-import com.uesocc.entities.casosAcad.Proceso;
+import com.uesocc.entities.casosAcad.ProcesoDetalle;
 import com.uesocc.facades.casosAcad.ProcesoDetalleFacadeLocal;
-import com.uesocc.facades.casosAcad.ProcesoFacadeLocal;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -21,81 +20,116 @@ import javax.faces.view.ViewScoped;
 import org.primefaces.event.SelectEvent;
 import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
-/*--------- Borrar esta linea al unirlo-------------------*/
-import ues.casosAcad.prime.beans.MensajesFormularios;
-/*-------------------------------------------------------*/
 
 
 /**
  *
  * @author kevin
  */
-@Named(value = "frmProcesoPrime")
+@Named(value = "frmProcesoDetallePrime")
 @ViewScoped
-public class FrmProcesoPrime implements Serializable{
+public class FrmProcesoDetallePrime implements Serializable{
 
     @EJB
-    private ProcesoFacadeLocal ejbProceso;
-    
-    @EJB
-    private ProcesoDetalleFacadeLocal ejbProcesoDetalle2;
-    
+    private ProcesoDetalleFacadeLocal ejbProcesoDetalle;
     
     private boolean btnadd = false; //encapsulado
     private boolean btnedit = false; //encapsulado
     private boolean btnremove = false; //encapsulado
     private boolean frmcrud = false; //encapsulado
+    private boolean frmcrudsts = true; // encapsulado
     
-    private LazyDataModel<Proceso> modelo;
-    private Proceso registro;
+    private LazyDataModel<ProcesoDetalle> modelo;
+    private ProcesoDetalle registro;
     
     MensajesFormularios mensaje = new MensajesFormularios(); //Mensajes de validacion
     
-    /*-------Getter and Setter --------*/
+    /*---------- Getter and Settter ----------------------*/
 
-    public ProcesoFacadeLocal getEjbProceso() {
-        return ejbProceso;
+    public ProcesoDetalleFacadeLocal getEjbProcesoDetalle() {
+        return ejbProcesoDetalle;
     }
 
-    public void setEjbProceso(ProcesoFacadeLocal ejbProceso) {
-        this.ejbProceso = ejbProceso;
+    public void setEjbProcesoDetalle(ProcesoDetalleFacadeLocal ejbProcesoDetalle) {
+        this.ejbProcesoDetalle = ejbProcesoDetalle;
     }
 
-    public ProcesoDetalleFacadeLocal getEjbProcesoDetalle2() {
-        return ejbProcesoDetalle2;
+    public boolean isBtnadd() {
+        return btnadd;
     }
 
-    public void setEjbProcesoDetalle2(ProcesoDetalleFacadeLocal ejbProcesoDetalle2) {
-        this.ejbProcesoDetalle2 = ejbProcesoDetalle2;
+    public void setBtnadd(boolean btnadd) {
+        this.btnadd = btnadd;
     }
 
-    public LazyDataModel<Proceso> getModelo() {
+    public boolean isBtnedit() {
+        return btnedit;
+    }
+
+    public void setBtnedit(boolean btnedit) {
+        this.btnedit = btnedit;
+    }
+
+    public boolean isBtnremove() {
+        return btnremove;
+    }
+
+    public void setBtnremove(boolean btnremove) {
+        this.btnremove = btnremove;
+    }
+
+    public boolean isFrmcrud() {
+        return frmcrud;
+    }
+
+    public void setFrmcrud(boolean frmcrud) {
+        this.frmcrud = frmcrud;
+    }
+
+    public boolean isFrmcrudsts() {
+        return frmcrudsts;
+    }
+
+    public void setFrmcrudsts(boolean frmcrudsts) {
+        this.frmcrudsts = frmcrudsts;
+    }
+
+    public LazyDataModel<ProcesoDetalle> getModelo() {
         return modelo;
     }
 
-    public void setModelo(LazyDataModel<Proceso> modelo) {
+    public void setModelo(LazyDataModel<ProcesoDetalle> modelo) {
         this.modelo = modelo;
     }
 
-    public Proceso getRegistro() {
+    public ProcesoDetalle getRegistro() {
         return registro;
     }
 
-    public void setRegistro(Proceso registro) {
+    public void setRegistro(ProcesoDetalle registro) {
         this.registro = registro;
     }
-      
-    /*-------End Getter and Setter ----------*/
+
+    public MensajesFormularios getMensaje() {
+        return mensaje;
+    }
+
+    public void setMensaje(MensajesFormularios mensaje) {
+        this.mensaje = mensaje;
+    }
     
-    public FrmProcesoPrime() {
+    
+    /*---------- End Getter and Setter --------------------*/
+    
+    public FrmProcesoDetallePrime() {
     }
     
     @Deprecated
-    public List<Proceso> obtenerTodos(){
-        List<Proceso> salida = new ArrayList();
+    public List<ProcesoDetalle> obtenerTodos(){
+        List<ProcesoDetalle> salida = new ArrayList();
             try {
-                if (ejbProceso != null) {
-                    salida = ejbProceso.findAll();
+                if (ejbProcesoDetalle != null) {
+                    salida = ejbProcesoDetalle.findAll();
                 }
             } catch (Exception e) {
                 Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
@@ -106,26 +140,26 @@ public class FrmProcesoPrime implements Serializable{
     @PostConstruct
     private void inicio(){
         
-        registro = new Proceso();
+        registro = new ProcesoDetalle();
         
         try {
             
-            modelo = new LazyDataModel<Proceso>() {
+            modelo = new LazyDataModel<ProcesoDetalle>() {
                 @Override
-                public Object getRowKey(Proceso object){
+                public Object getRowKey(ProcesoDetalle object){
                     if(object != null){
-                        return object.getIdProceso();
+                        return object.getIdProcesoDetalle();
                     }
                     return null;
                 }
                 
                 @Override
-                public  Proceso getRowData(String rowKey){
+                public  ProcesoDetalle getRowData(String rowKey){
                     if(rowKey != null && !rowKey.isEmpty() && this.getWrappedData() != null){
                         try {
                             Integer buscado = new Integer(rowKey);
-                            for (Proceso thi : (List<Proceso>) getWrappedData()) {
-                                if(thi.getIdProceso().compareTo(buscado)  == 0){
+                            for (ProcesoDetalle thi : (List<ProcesoDetalle>) getWrappedData()) {
+                                if(thi.getIdProcesoDetalle().compareTo(buscado)  == 0){
                                     return thi;
                                 }
                             }
@@ -137,14 +171,14 @@ public class FrmProcesoPrime implements Serializable{
                 }
                 
                 @Override
-                public List<Proceso> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
-                    List<Proceso> salida = new ArrayList(); 
+                public List<ProcesoDetalle> load(int first, int pageSize, String sortField, SortOrder sortOrder, Map<String, Object> filters) {
+                    List<ProcesoDetalle> salida = new ArrayList(); 
                     
                     if (filters == null || filters.isEmpty()) {
                     try {
-                        if(ejbProceso != null){
-                            this.setRowCount(ejbProceso.count());
-                            salida= ejbProceso.findRange(first,pageSize);
+                        if(ejbProcesoDetalle != null){
+                            this.setRowCount(ejbProcesoDetalle.count());
+                            salida= ejbProcesoDetalle.findRange(first,pageSize);
                         }
                     } catch (Exception e) {
                          Logger.getLogger(getClass().getName()).log(Level.SEVERE, e.getMessage(), e);
@@ -153,21 +187,29 @@ public class FrmProcesoPrime implements Serializable{
                 }
                 salida = null;
                     try {
-                        if (!filters.isEmpty() && (filters.containsKey("idProceso")||filters.containsKey("nombre")||filters.containsKey("descripcion"))) {
+                        if (!filters.isEmpty() && (filters.containsKey("idProcesoDetalle")||filters.containsKey("idProceso")||filters.containsKey("idPaso")||filters.containsKey("indice"))) {
                             
-                            if(filters.containsKey("idProceso")){
-                                salida = ejbProceso.findBy("idProceso", filters.get("idProceso").toString(), first, pageSize);
+                            if(filters.containsKey("idProcesoDetalle")){
+                                salida = ejbProcesoDetalle.findBy("idProcesoDetalle", filters.get("idProcesoDetalle").toString(), first, pageSize);
                             if (modelo != null) {
                                 modelo.setRowCount(salida.size());
                             }
                             
-                            } else if(filters.containsKey("nombre")){
-                                salida = ejbProceso.findBy("nombre", filters.get("nombre").toString(), first, pageSize);
+                            } else if(filters.containsKey("idProceso")){
+                                salida = ejbProcesoDetalle.filtroForaneo("idProceso", "nombre", filters.get("idProceso").toString(), first, pageSize);
                             if (modelo != null) {
                                 modelo.setRowCount(salida.size());
                             }
-                            } else if(filters.containsKey("descripcion")){
-                                salida = ejbProceso.findBy("descripcion", filters.get("descripcion").toString(), first, pageSize);
+                            
+                            } else if(filters.containsKey("idPaso")){
+                                salida = ejbProcesoDetalle.filtroForaneo("idPaso", "nombre", filters.get("idPaso").toString(), first, pageSize);
+                            if (modelo != null) {
+                                modelo.setRowCount(salida.size());
+                            }
+                            
+                            }
+                            else if(filters.containsKey("indice")){
+                                salida = ejbProcesoDetalle.findBy("indice", filters.get("indice").toString(), first, pageSize);
                             if (modelo != null) {
                                 modelo.setRowCount(salida.size());
                             }
@@ -189,19 +231,21 @@ public class FrmProcesoPrime implements Serializable{
         }
     }
     
-    public void nuevo() {
-        this.registro = new Proceso();
+    
+     public void nuevo() {
+        this.registro = new ProcesoDetalle();
             setBtnadd(true);
             setBtnedit(false);
             setBtnremove(false);
+            setFrmcrudsts(false);
     }
     
     public void crearRegistro(){
-    if(this.registro.getDescripcion().isEmpty() != true && this.registro.getNombre().isEmpty() != true  && this.registro.getDescripcion()!= null && this.registro.getNombre()!= null) {
+    if(this.registro.getIndice() !=0) {
 
         try {
-            if(this.ejbProceso != null && this.registro != null){
-                this.ejbProceso.create(registro);
+            if(this.ejbProcesoDetalle!= null && this.registro != null){
+                this.ejbProcesoDetalle.create(registro);
                 nuevo();
                 mensaje.msgCreadoExito();
             }
@@ -216,8 +260,8 @@ public class FrmProcesoPrime implements Serializable{
 
     public void eliminar() {
         try {
-            if (this.ejbProceso != null && registro != null) {
-                ejbProceso.remove(this.registro);
+            if (this.ejbProcesoDetalle != null && registro != null) {
+                ejbProcesoDetalle.remove(this.registro);
                 nuevo();
                 mensaje.msgEliminacion();
             }
@@ -227,11 +271,11 @@ public class FrmProcesoPrime implements Serializable{
     }
     
     public void editarRegistro(){
-        if(this.registro.getDescripcion().isEmpty() != true && this.registro.getNombre().isEmpty() != true  && this.registro.getDescripcion()!= null && this.registro.getNombre()!= null) {
+        if(this.registro.getIndice() !=0) {
 
 	    try{
-		if(this.registro != null && this.ejbProceso != null){
-		    this.ejbProceso.edit(registro);
+		if(this.registro != null && this.ejbProcesoDetalle != null){
+		    this.ejbProcesoDetalle.edit(registro);
                      nuevo();
                      mensaje.msgModificacion();
 		}
@@ -245,66 +289,11 @@ public class FrmProcesoPrime implements Serializable{
 	}
     
     public void cambiarSeleccion(SelectEvent e){
-      this.registro=(Proceso)e.getObject();
+      this.registro=(ProcesoDetalle)e.getObject();
       setBtnedit(true);
       setBtnremove(true);
       setBtnadd(false);
-    }
-
-    /**
-     * @return the btnadd
-     */
-    public boolean isBtnadd() {
-        return btnadd;
-    }
-
-    /**
-     * @param btnadd the btnadd to set
-     */
-    public void setBtnadd(boolean btnadd) {
-        this.btnadd = btnadd;
-    }
-
-    /**
-     * @return the btnedit
-     */
-    public boolean isBtnedit() {
-        return btnedit;
-    }
-
-    /**
-     * @param btnedit the btnedit to set
-     */
-    public void setBtnedit(boolean btnedit) {
-        this.btnedit = btnedit;
-    }
-
-    /**
-     * @return the btnremove
-     */
-    public boolean isBtnremove() {
-        return btnremove;
-    }
-
-    /**
-     * @param btnremove the btnremove to set
-     */
-    public void setBtnremove(boolean btnremove) {
-        this.btnremove = btnremove;
-    }
-
-    /**
-     * @return the frmcrud
-     */
-    public boolean isFrmcrud() {
-        return frmcrud;
-    }
-
-    /**
-     * @param frmcrud the frmcrud to set
-     */
-    public void setFrmcrud(boolean frmcrud) {
-        this.frmcrud = frmcrud;
+      setFrmcrudsts(false);
     }
     
 }

@@ -40,6 +40,7 @@
                                 <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{frmTipoPasoPrime.registro.descripcion}" disabled="#{frmTipoPasoPrime.frmcrudsts}" />
                             </p:panelGrid>
                             <co:crudBtns clase="#{frmTipoPasoPrime}" update=":frm-tipopaso:cc-table:tb-tipopaso :frm-crud"/>
+                            <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                         </p:fieldset>
                     </h:form>
                 </f:view>
