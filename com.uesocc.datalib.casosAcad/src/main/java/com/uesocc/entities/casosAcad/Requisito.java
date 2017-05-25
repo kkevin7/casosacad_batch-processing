@@ -145,7 +145,7 @@ public class Requisito implements Serializable {
 
     @Override
     public String toString() {
-        return "com.uesocc.entities.casosAcad.Requisito[ idRequisito=" + idRequisito + " ]";
+        return String.valueOf(idRequisito);
     }
     
 }

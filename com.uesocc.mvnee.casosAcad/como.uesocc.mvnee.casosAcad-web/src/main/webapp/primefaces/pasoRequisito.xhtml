@@ -1,0 +1,182 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets">
+    <h:head>
+        <title>Paso Requisito</title>
+    </h:head>
+    <h:body>
+        <ui:composition  template="../templates/templateprime.xhtml">
+            <ui:define name="content">
+                <f:view>   
+                    <h:form id="frmData" styleClass="centrartablad">
+                        <p:dataTable value="#{frmPasoPrime.modelo}"
+                                     class="tabla"
+                                     lazy="true"
+                                     var="item"
+                                     paginator="true" 
+                                     rows="12" 
+                                     selectionMode="single"
+                                     selection="#{mbPasoRequisito.selectedPaso}"
+                                     emptyMessage="Aún no se han agregado pasos."
+                                     paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                     widgetVar="dataTable"
+                                     > 
+                            <p:ajax update=":frmEdit" event="rowSelect" listener="#{mbPasoRequisito.changeSelectedPaso}"/>
+                            <p:column filterBy="#{item.idPaso}" headerText="ID" sortBy="#{item.idPaso}">
+                                <h:outputText value="#{item.idPaso}"/>
+                            </p:column>
+
+                            <p:column filterBy="#{item.descripcion}" headerText="DESCRIPCIÓN" sortBy="#{item.descripcion}">
+                                <h:outputText value="#{item.descripcion}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.tiempo}" headerText="TIEMPO" sortBy="#{item.tiempo}">
+                                <h:outputText value="#{item.tiempo}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.idTipoPaso.idTipoPaso}" headerText="TIPO PASO" sortBy="#{item.idTipoPaso}">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('dataTable').filter()" converter="omnifaces.SelectItemsConverter">
+                                        <f:selectItem value="#{null}" itemLabel="Seleccione uno..."/>
+                                        <f:selectItems value="#{mbTipoPaso.findAll()}" 
+                                                       var="id" 
+                                                       itemLabel="#{id.nombre}" 
+                                                       itemValue="#{id}"
+                                                       itemDescription="#{id.descripcion}"/>
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="#{item.idTipoPaso.nombre}"/>
+                            </p:column>
+                            <p:column headerText="Dependencias">
+                                <h:outputText value="#{mbPasoRequisito.tieneLista(item)?'TIENE':'NO TIENE'}"/>
+
+                            </p:column>
+                        </p:dataTable>
+                    </h:form>
+                </f:view>
+
+                <br/>
+
+                <h:form id="frmEdit" style="min-width: 350px;" styleClass="centrartabla">
+                    <p:fieldset toggleable="true" widgetVar="fsEdit">
+                        <f:facet name="legend">
+                            <h:outputText value="Panel de Edición"/>
+
+
+                        </f:facet>
+
+                        <p:growl id="growl" sticky="true" showDetail="true"/>
+                        <p:wizard id="wiz" widgetVar="wiz">
+                            <p:tab id="requisitos" title="Requisitos">
+
+                                <p:panel header="Agregar requisitos.">
+
+                                    <p:layout style="min-width:400px;min-height:200px;">
+                                        <p:layoutUnit position="west" resizable="true" size="800" minSize="40" maxSize="800">
+                                            <p:dataTable 
+                                                value="#{mbPasoRequisito.obtenerLista()}"
+                                                lazy="false"
+                                                var="paso"
+                                                paginator="true"
+                                                rows="10"
+                                                emptyMessage="Aún no se han relacionado requisitos para este paso."
+                                                style="max-width: 500px;"
+                                                >
+
+                                                <p:column headerText="Requisitos ya relacionados.">
+                                                    <h:outputText value="#{paso.idRequisito.nombre}"/>
+                                                </p:column>   
+                                                <p:column headerText="Eliminar">
+                                                    <p:commandLink value="Eliminar">
+                                                        <p:ajax process=":frmEdit" update=":frmEdit :frmData"  listener="#{mbPasoRequisito.remove(paso)}"/>
+                                                    </p:commandLink>
+                                                </p:column>
+
+                                            </p:dataTable>
+
+                                        </p:layoutUnit>
+                                        <p:layoutUnit position="center">
+
+                                            <p:commandButton value="Agregar Requisito">
+                                                <p:ajax process=":frmEdit" update=":frmEdit" oncomplete="PF('dlgEdit').show()"/>     
+                                            </p:commandButton>
+
+                                            <h:panelGrid id="confirmacion" columns="3" columnClasses="grid,grid,grid">
+                                                <h:panelGrid columns="2" columnClasses="label, value">
+                                                    <p:orderList value="#{mbPasoRequisito.paraAgregar}" var="target" controlsLocation="none" itemLabel="#{mbPasoRequisito.obtenerRequisito(target).nombre}" itemValue="#{target}"/> 
+                                                </h:panelGrid>
+                                            </h:panelGrid>
+                                        </p:layoutUnit>
+                                    </p:layout>
+                                </p:panel>
+                            </p:tab>
+                            <p:tab id="confirm" title="Confirmation">
+                                <p:panel header="Confirmation">
+                                    <h:panelGrid id="confirmation" columns="3" columnClasses="grid,grid,grid">
+                                        <h:panelGrid columns="2" columnClasses="label, value">
+                                            <h:outputText value="Paso " />
+                                            <h:outputText value="#{mbPasoRequisito.selectedPaso.descripcion}" styleClass="outputLabel"/>
+                                            <p:orderList value="#{mbPasoRequisito.resumen}" var="target" controlsLocation="none" itemLabel="#{mbPasoRequisito.obtenerRequisito(target).nombre}" itemValue="#{target}" /> 
+                                        </h:panelGrid>
+                                    </h:panelGrid>
+                                </p:panel>
+
+                            </p:tab>
+
+
+
+                        </p:wizard>
+
+                        <p:commandButton value="Guardar">
+                            <p:ajax process=":frmEdit :frmData" update=":frmEdit :frmData" listener="#{mbPasoRequisito.create()}" oncomplete="PF('wiz').loadStep('requisitos', false); PF('fsEdit').toggle();"/>
+                        </p:commandButton>
+
+                    </p:fieldset>
+                    <p:dialog widgetVar="dlgEdit" 
+                              id="dlgEdit" 
+                              header="Relacionar requisitos al paso seleccionado." 
+                              closable="true" 
+                              closeOnEscape="true" 
+                              draggable="true" 
+                              dynamic="true" 
+                              footer="Seleccione un requisito para relacionar." 
+                              maximizable="false" 
+                              minimizable="false"
+                              resizable="true" >
+
+                        <p:dataTable 
+                            value="#{mbPasoRequisito.filtrados}"
+                            var="req"
+                            emptyMessage="Aún no se han relacionado requisitos para este paso."
+                            style="max-width: 500px;"
+                            selectionMode="single"
+                            selection="#{mbPasoRequisito.selectedRequisito}"
+                            rowKey="#{req.idRequisito}"
+                            paginator="true"
+                            rows="5"
+
+                            >
+                            <p:ajax update=":frmEdit" event="rowSelect" listener="#{mbPasoRequisito.changeSelectedRequisito}"/>
+
+
+                            <p:column headerText="Selecciona un requisito.">
+                                <h:outputText value="#{req.nombre}"/>
+                            </p:column>            
+
+
+
+                        </p:dataTable>
+
+
+                    </p:dialog>
+
+                </h:form>
+
+
+            </ui:define>
+        </ui:composition>
+    </h:body>
+</html>
+

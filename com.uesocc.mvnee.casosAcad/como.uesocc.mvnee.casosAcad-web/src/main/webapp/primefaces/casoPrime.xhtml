@@ -1,0 +1,119 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      >
+    
+   <ui:composition template="../templates/templateprime.xhtml">
+             <ui:define name="content">
+                   
+            <f:view>
+                
+                
+                    <h:form id="frm-paso">
+                        <h1 class="titulo" ><h:outputText value="Casos "/></h1>
+                        <p:dataTable value="#{frmCasoPrime.modelo}" id="tb-paso" class="tableclass"
+                                     var="item" 
+                                     lazy="true"
+                                     paginator="true"
+                                     rows="5"
+                                     rowsPerPageTemplate="5,10,15"
+                                     paginatorPosition="bottom"
+                                     selectionMode="single"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     >
+                            <p:column  headerText="ID" class="colum-id">
+                                <f:facet name="header">
+                                    <h:outputText value="Id"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idCaso}"/>
+                            </p:column >
+                             <p:column headerText="ID" class="colum-id">
+                                <f:facet name="header">
+                                    <h:outputText value="Id"/>
+                                </f:facet>
+                                <h:outputText value="#{item.carnet}"/>
+                            </p:column >
+                              <p:column headerText="Ver Detalles">
+                            
+                                  <p:button value="Ir a" outcome="casoDetalle.jsf?id=1" /> >
+ 
+                           
+                                
+                          
+                            
+                        </p:column>
+                           
+                        </p:dataTable>
+                    </h:form>
+                
+            
+                 
+                <h:form id="frmEdit" styleClass="centrarpanel" >
+                   
+                 
+                    <h2 align="center" class="letra" >AGREGAR CASO</h2>
+                        <p:messages/>
+                        <p:panelGrid id="pnlEdit" columns="3" styleClass="panelNoBorder"  >
+                            
+                            <p:outputLabel value="CARNET:" for="carnet" />
+                            <p:inputText id="carnet" value="#{mbAgregarCaso.selectedAgregarCaso.carnet}" title="carnet"/>
+                             <br/>   
+                            <p:outputLabel value="NIT:" for="nit" />
+                            <p:inputText id="nit" value="#{mbAgregarCaso.selectedAgregarCaso.nit}" title="nit" label=""/>
+                            <br/>
+                            <p:outputLabel value="PROCESO" for="proceso"/>
+                            <p:inputText id="proceso" value="#{mbAgregarCaso.selectedAgregarCaso.idProceso.nombre}" title="Nombre" disabled="true"/>
+                            <p:commandButton value="SELECCIONAR" update="@this" oncomplete="PF('eshta').show()" >
+                               
+                            </p:commandButton>
+                        </p:panelGrid>
+                        <p:commandButton value="CREAR" update="@this" actionListener="#{mbAgregarCaso.create()}">
+                           
+                        </p:commandButton>
+                   
+                </h:form>
+                 
+            </f:view>
+                 
+                <p:dialog id="dialogo" widgetVar="eshta" height="250px" width="500px">
+                    <h:form id="frmTabla">
+                        <p:dataTable value="#{frmProcesoPrime.modelo}" 
+                        class="tabla"
+                        lazy="true"
+                        var="item"
+                        paginator="true"
+                        rows="10"
+                        selectionMode="single"
+                        selection="#{frmProcesoPrime.registro}"
+                        emptyMessage="Aún no se han registrado procesos"
+                        paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                        widgetVar="dataTable"
+                    >
+                        <p:ajax process="@this" update=":frmEdit" event="rowSelect" listener="#{mbAgregarCaso.changeSelected}" oncomplete="PF('eshta').hide()"/>
+                        <p:column headerText="ID">
+                                        
+                            <h:outputText value="#{item.idProceso}"/>
+                        </p:column>
+                        <p:column headerText="NOMBRE" filterBy="#{item.nombre}" sortBy="#{item.nombre}">
+
+                            <h:outputText value="#{item.nombre}"/>
+                        </p:column>
+                        <p:column headerText="DESCRIPCIÓN">
+                                        
+                            <h:outputText value="#{item.descripcion}"/>
+                        </p:column>
+                       
+                    </p:dataTable>
+                    </h:form>
+                    
+                    
+                </p:dialog>
+            </ui:define>
+        </ui:composition>
+
+</html>
+         

@@ -26,6 +26,7 @@ public class FrmPasoPrime implements Serializable{
     @EJB
     private TipoPasoFacadeLocal ejbTipoPaso;
     
+    private String field;
     private boolean btnadd = false; //encapsulado
     private boolean btnedit = false; //encapsulado
     private boolean btnremove = false; //encapsulado
@@ -325,6 +326,20 @@ public class FrmPasoPrime implements Serializable{
      */
     public void setFrmcrudsts(boolean frmcrudsts) {
         this.frmcrudsts = frmcrudsts;
+    }
+
+    /**
+     * @return the field
+     */
+    public String getField() {
+        return field;
+    }
+
+    /**
+     * @param field the field to set
+     */
+    public void setField(String field) {
+        this.field = field;
     }
     
     

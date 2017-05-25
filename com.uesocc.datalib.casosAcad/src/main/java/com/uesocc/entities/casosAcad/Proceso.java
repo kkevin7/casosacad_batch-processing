@@ -52,6 +52,8 @@ public class Proceso implements Serializable {
     private List<ProcesoDetalle> procesoDetalleList;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProceso")
     private List<Caso> casoList;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idProceso")
+    private List<Solicitudes> solicitudesList;
 
     public Proceso() {
     }
@@ -108,6 +110,15 @@ public class Proceso implements Serializable {
         this.casoList = casoList;
     }
 
+    @XmlTransient
+    public List<Solicitudes> getSolicitudesList() {
+        return solicitudesList;
+    }
+
+    public void setSolicitudesList(List<Solicitudes> solicitudesList) {
+        this.solicitudesList = solicitudesList;
+    }
+
     @Override
     public int hashCode() {
         int hash = 0;
@@ -130,7 +141,7 @@ public class Proceso implements Serializable {
 
     @Override
     public String toString() {
-        return "com.uesocc.entities.casosAcad.Proceso[ idProceso=" + idProceso + " ]";
+        return String.valueOf(idProceso);
     }
     
 }

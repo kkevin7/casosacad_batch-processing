@@ -32,9 +32,29 @@ public interface AbstractInterface<T> {
     //Agregados
     
     boolean creator(T paso);
+        
+//    public List<T> findByExt(String parameter, Object value);
     
     public List<T> findBy(String parameter, String value, int first, int pageSize);
     
     public List<T> filtroForaneo(String parameter, String parameter2, String value, int first, int pageSize);
+    
+    public List<T> filtroForaneoall(String parameter, String parameter2, String value);
+    
+    public List<T> findByAll(String parameter, String value);
+    
+    
+    public List<T> findByJoined(String parameter, Object value);
+  
+    public List<T> findByMultiple(String parameter1, Object value1, String parameter2, Object value2);
+    
+    public List<T> findDistinct(String parameter);
+        public List<T> findByTriple(String parameter1, Object value1, String parameter2, Object value2, String parameter3, Object value3);
+
+    
+    
+    
+
+
     
 }

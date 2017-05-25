@@ -20,28 +20,74 @@
 
                     <h:form id="frm-tipopaso">
                         <h1 class="titulo" ><h:outputText value="Tipo Paso"/></h1>
-                        <co:tipopasoTable id="cc-table" up="frm-crud"/>
+                        <p:dataTable value="#{frmTipoPasoPrime.modelo}" id="tb-tipopaso" class="tableclass"
+                                     var="item" 
+                                     lazy="true"
+                                     paginator="true"
+                                     rows="5"
+                                     rowsPerPageTemplate="5,10,15"
+                                     paginatorPosition="bottom"
+                                     selectionMode="single"
+                                     paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
+                                     widgetVar="dataTable"
+                                     >
+                            <p:ajax update=":frm-crud" event="rowSelect" listener="#{frmTipoPasoPrime.cambiarSeleccion}"/>
+                            <p:column filterBy="#{item.idTipoPaso}" headerText="ID">
+                                <f:facet name="header">
+                                    <h:outputText value="IdTipoPaso"/>
+                                </f:facet>
+                                <h:outputText value="#{item.idTipoPaso}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.nombre}" headerText="Nombre" >
+                                <f:facet name="header">
+                                    <h:outputText value="Nombre"/>
+                                </f:facet>
+                                <h:outputText value="#{item.nombre}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.descripcion}" headerText="Descripcion">
+                                <f:facet name="header">
+                                    <h:outputText value="Descripcion"/>
+                                </f:facet>
+                                <h:outputText value="#{item.descripcion}"/>
+                            </p:column>
+                            <p:column filterBy="#{item.activo}" headerText="Estado">
+                                <f:facet name="filter">
+                                    <p:selectOneMenu onchange="PF('dataTable').filter()">
+                                        <f:selectItem itemLabel="Todos" itemValue="" />
+                                        <f:selectItem itemLabel="Activo" itemValue="1" />
+                                        <f:selectItem itemLabel="Inactivo" itemValue="0" />
+                                    </p:selectOneMenu>
+                                </f:facet>
+                                <h:outputText value="#{item.activo? 'Activo':'Inactivo'}"/>
+                            </p:column>
+                        </p:dataTable>
                     </h:form>
                 </f:view>
 
 
                 <f:view>
+
+
                     <h:form id="frm-crud">
+
                         <p:growl id="msgs" showDetail="true" />
+
                         <p:fieldset legend="Datos" class="contdatos">
+                            <h1><h:outputText value="Create/Edit"/></h1>
                             <p:panelGrid columns="2" id="panel-crud">
                                 <p:outputLabel value="IdTipoPaso:" for="idTipoPaso" />
                                 <p:inputText id="idTipoPaso" value="#{frmTipoPasoPrime.registro.idTipoPaso}" disabled="true" readonly="true" />
                                 <p:outputLabel value="Nombre:" for="nombre" />
-                                <p:inputText id="nombre" value="#{frmTipoPasoPrime.registro.nombre}" title="Nombre" disabled="#{frmTipoPasoPrime.frmcrudsts}" />
+                                <p:inputText id="nombre" value="#{frmTipoPasoPrime.registro.nombre}" title="Nombre" />
                                 <p:outputLabel value="Estado:" for="activo" />
                                 <p:selectBooleanCheckbox id="activo" value="#{frmTipoPasoPrime.registro.activo}"/>
                                 <p:outputLabel value="Descripcion:" for="descripcion" />
-                                <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{frmTipoPasoPrime.registro.descripcion}" disabled="#{frmTipoPasoPrime.frmcrudsts}" />
+                                <p:inputTextarea rows="4" cols="30" id="descripcion" value="#{frmTipoPasoPrime.registro.descripcion}" />
                             </p:panelGrid>
-                            <co:crudBtns clase="#{frmTipoPasoPrime}" update=":frm-tipopaso:cc-table:tb-tipopaso :frm-crud"/>
+                            <co:crudBtns clase="#{frmTipoPasoPrime}" update=":frm-tipopaso:tb-tipopaso :frm-crud"/>
                             <p:messages id="messages" showDetail="true" autoUpdate="true" closable="true" />
                         </p:fieldset>
+
                     </h:form>
                 </f:view>
             </ui:define>

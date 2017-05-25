@@ -53,11 +53,13 @@
                                 </f:facet>
                                 <h:outputText value="#{item.descripcion}"/>
                             </p:column>
+                          
+                
                             <p:column filterBy="#{item.tiempo}" headerText="Tiempo" >
                                 <f:facet name="header">
                                     <h:outputText value="Tiempo"/>
                                 </f:facet>
-                                <h:outputText value="#{item.tiempo}"/>
+
                             </p:column>
                         </p:dataTable>
                     </h:form>
@@ -73,6 +75,9 @@
                         <p:fieldset legend="Datos" class="contdatos">
                             <p:panelGrid id="panel-crud" columns="2">
                                 <p:outputLabel value="IdPaso:" for="idPaso" />
+                                <p:outputLabel value="IdPaso:"  />
+  <p:calendar value="#{frmPasoPrime.field}" pattern="dd.MM.yyyy"/>
+                            <p:outputLabel value="#{frmPasoPrime.field}"/>
                                 <p:inputText id="idPaso" value="#{frmPasoPrime.registro.idPaso}" title="IdPaso" disabled="true" readonly="true" />
                                 <p:outputLabel value="Nombre:" for="nombre" />
                                 <p:inputText id="nombre" value="#{frmPasoPrime.registro.nombre}" title="Nombre" disabled="#{frmPasoPrime.frmcrudsts}" />                              

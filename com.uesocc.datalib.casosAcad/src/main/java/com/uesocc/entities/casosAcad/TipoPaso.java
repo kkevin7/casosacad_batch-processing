@@ -49,8 +49,9 @@ public class TipoPaso implements Serializable {
     @Lob
     @Column(name = "Descripcion", nullable = false, length = 65535)
     private String descripcion;
-    @Column(name = "activo")
-    private Boolean activo;
+    @Basic(optional = false)
+    @Column(name = "activo", nullable = false)
+    private boolean activo;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "idTipoPaso")
     private List<Paso> pasoList;
 
@@ -61,10 +62,11 @@ public class TipoPaso implements Serializable {
         this.idTipoPaso = idTipoPaso;
     }
 
-    public TipoPaso(Integer idTipoPaso, String nombre, String descripcion) {
+    public TipoPaso(Integer idTipoPaso, String nombre, String descripcion, boolean activo) {
         this.idTipoPaso = idTipoPaso;
         this.nombre = nombre;
         this.descripcion = descripcion;
+        this.activo = activo;
     }
 
     public Integer getIdTipoPaso() {
@@ -91,11 +93,11 @@ public class TipoPaso implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public Boolean getActivo() {
+    public boolean getActivo() {
         return activo;
     }
 
-    public void setActivo(Boolean activo) {
+    public void setActivo(boolean activo) {
         this.activo = activo;
     }
 
@@ -130,7 +132,7 @@ public class TipoPaso implements Serializable {
 
     @Override
     public String toString() {
-        return "com.uesocc.entities.casosAcad.TipoPaso[ idTipoPaso=" + idTipoPaso + " ]";
+        return String.valueOf(idTipoPaso);
     }
     
 }

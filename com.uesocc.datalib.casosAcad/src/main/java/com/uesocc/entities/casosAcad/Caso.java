@@ -32,7 +32,9 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "Caso.findAll", query = "SELECT c FROM Caso c")
-    , @NamedQuery(name = "Caso.findByIdCaso", query = "SELECT c FROM Caso c WHERE c.idCaso = :idCaso")})
+    , @NamedQuery(name = "Caso.findByIdCaso", query = "SELECT c FROM Caso c WHERE c.idCaso = :idCaso")
+    , @NamedQuery(name = "Caso.findByCarnet", query = "SELECT c FROM Caso c WHERE c.carnet = :carnet")
+    , @NamedQuery(name = "Caso.findByNit", query = "SELECT c FROM Caso c WHERE c.nit = :nit")})
 public class Caso implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -41,8 +43,12 @@ public class Caso implements Serializable {
     @Basic(optional = false)
     @Column(name = "IdCaso", nullable = false)
     private Integer idCaso;
-    @JoinColumn(name = "idSolicitud", referencedColumnName = "idSolicitud", nullable = false)
-    @ManyToOne(optional = false)
+    @Column(name = "carnet", length = 7)
+    private String carnet;
+    @Column(name = "nit")
+    private Integer nit;
+    @JoinColumn(name = "idSolicitud", referencedColumnName = "idSolicitud")
+    @ManyToOne
     private Solicitudes idSolicitud;
     @JoinColumn(name = "idProceso", referencedColumnName = "idProceso", nullable = false)
     @ManyToOne(optional = false)
@@ -63,6 +69,22 @@ public class Caso implements Serializable {
 
     public void setIdCaso(Integer idCaso) {
         this.idCaso = idCaso;
+    }
+
+    public String getCarnet() {
+        return carnet;
+    }
+
+    public void setCarnet(String carnet) {
+        this.carnet = carnet;
+    }
+
+    public Integer getNit() {
+        return nit;
+    }
+
+    public void setNit(Integer nit) {
+        this.nit = nit;
     }
 
     public Solicitudes getIdSolicitud() {
@@ -112,7 +134,7 @@ public class Caso implements Serializable {
 
     @Override
     public String toString() {
-        return "com.uesocc.entities.casosAcad.Caso[ idCaso=" + idCaso + " ]";
+        return String.valueOf(idCaso);
     }
     
 }

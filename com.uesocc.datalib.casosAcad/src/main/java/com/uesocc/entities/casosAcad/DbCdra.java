@@ -49,9 +49,9 @@ public class DbCdra implements Serializable {
     @Lob
     @Column(name = "Descripcion", length = 65535)
     private String descripcion;
-    @JoinColumn(name = "IdCasoDR", referencedColumnName = "idCasoDR", nullable = false)
+    @JoinColumn(name = "IdCDR", referencedColumnName = "idCDR", nullable = false)
     @ManyToOne(optional = false)
-    private CasoDetalleRequisito idCasoDR;
+    private CasoDetalleRequisito idCDR;
 
     public DbCdra() {
     }
@@ -89,12 +89,12 @@ public class DbCdra implements Serializable {
         this.descripcion = descripcion;
     }
 
-    public CasoDetalleRequisito getIdCasoDR() {
-        return idCasoDR;
+    public CasoDetalleRequisito getIdCDR() {
+        return idCDR;
     }
 
-    public void setIdCasoDR(CasoDetalleRequisito idCasoDR) {
-        this.idCasoDR = idCasoDR;
+    public void setIdCDR(CasoDetalleRequisito idCDR) {
+        this.idCDR = idCDR;
     }
 
     @Override
@@ -119,7 +119,7 @@ public class DbCdra implements Serializable {
 
     @Override
     public String toString() {
-        return "com.uesocc.entities.casosAcad.DbCdra[ idCDRA=" + idCDRA + " ]";
+        return String.valueOf(idCDRA);
     }
     
 }

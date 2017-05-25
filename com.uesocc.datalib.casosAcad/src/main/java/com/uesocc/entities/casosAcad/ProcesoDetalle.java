@@ -114,7 +114,7 @@ public class ProcesoDetalle implements Serializable {
 
     @Override
     public String toString() {
-        return "com.uesocc.entities.casosAcad.ProcesoDetalle[ idProcesoDetalle=" + idProcesoDetalle + " ]";
+        return String.valueOf(idProcesoDetalle);
     }
     
 }

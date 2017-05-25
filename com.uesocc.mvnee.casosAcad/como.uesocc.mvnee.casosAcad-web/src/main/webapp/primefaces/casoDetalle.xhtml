@@ -1,0 +1,141 @@
+<?xml version='1.0' encoding='UTF-8' ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition template="../templates/templateprime.xhtml">
+
+
+        <ui:define name="content">
+
+            <f:metadata>
+                <f:viewParam name="id" value="#{mbCasoDetalle.parameter}"/>
+            </f:metadata>
+
+            <p:layout>
+                <p:layoutUnit position="west" header="MENU DE OPCIONES">
+                    <h:form id="frmMenu">
+                        <p:menu>
+                            <p:submenu label="Mantenimiento">
+                                <p:menuitem value="Temporal" action="#{mbCasoDetalle.obtenerCaso()}" icon="ui-icon-arrowrefresh-1-w" update="@all">
+
+                                </p:menuitem>
+
+                            </p:submenu>
+                            
+
+
+                           
+
+
+                        </p:menu>
+                    </h:form>
+                </p:layoutUnit>
+
+                <p:layoutUnit id="centro" position="center" header="ESTADO DEL CASO">
+
+                    <div id="papaDiv">
+                        <div id="informacionCaso">
+                            <h:panelGrid id="pnlDescripcion" columns="2" styleClass="form-style-8">
+
+                                <p:outputLabel value="Solicitud" for="txtSolicitud"/>
+                                <h:inputText id="txtSolicitud" value="#{mbCasoDetalle.selectedCaso.idSolicitud.idSolicitud}"/>
+
+                                <p:outputLabel value="Proceso" for="txtProceso"/>
+                                <h:inputText id="txtProceso" value="#{mbCasoDetalle.selectedCaso.idProceso.nombre}"/>
+
+                                <p:outputLabel value="CARNET" for="txtCarnet"/>
+                                <h:inputText id="txtCarnet" value="#{mbCasoDetalle.selectedCaso.carnet}"/>
+
+                                <p:outputLabel value="Nombre" for="txtNombre"/>
+                                <h:inputText id="txtNombre" value="JCPenya"/>
+
+                                <p:outputLabel value="NIT" for="txtNIT"/>
+                                <h:inputText id="txtNIT" value="#{mbCasoDetalle.selectedCaso.nit}"/>
+
+                                <p:outputLabel value="ESTADO: " for="txtEstado"/>
+                                <h:inputText id="txtEstado" value="#{mbCasoDetalle.selectedCasoDetalle.estado}"/>
+
+                                <p:outputLabel value="Fecha: " for="txtFecha"/>
+                                <h:inputText id="txtFecha" value="#{mbCasoDetalle.selectedCasoDetalle.fecha}"/>
+
+                            </h:panelGrid>
+                        </div>
+                   </div>
+                    <br/>
+
+                    <p:dataTable id="tablaPasos" value="#{mbCasoDetalle.pasoList}"
+                                 lazy="false"
+                                 var="item"
+                                 paginator="true" 
+                                 rows="12" 
+                                 rowKey="#{item.idProcesoDetalle}"
+                                 selectionMode="single"
+                                 selection="#{mbCasoDetalle.selectedPaso}"
+                                 emptyMessage="Aún no se han agregado pasos."
+                                 paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                 style="max-width: 600px; float: left; margin: 35px"
+                                 
+                                 >
+                        <p:ajax update=":tablaRequisitos" process="@this" event="rowSelect" listener="#{mbCasoDetalle.changeSelectedRequisito}"/>
+
+                        <p:column headerText="ID">
+                            <h:outputText value="#{item.idPaso.nombre}"/>
+                        </p:column>
+                        <p:column headerText="LISTO" style="width: 100px;">
+                            <p:graphicImage value="#{mbCasoDetalle.comprobarListo(item)?'':''}"/>
+                        </p:column>
+                    </p:dataTable>
+                    <br/>
+                    <p:dataTable id="tablaRequisitos" value="#{mbCasoDetalle.requisitoList}"
+                                 class="tabla"
+                                 lazy="false"
+                                 var="item"
+                                 paginator="true" 
+                                 rows="12" 
+                                 rowKey="#{item.idPasoRequisito}"
+                                 selection="#{mbCasoDetalle.selectedRequisito}"
+                                 selectionMode="single"
+                                 emptyMessage="Aún no se han agregado pasos."
+                                 paginatorTemplate=" {FirstPageLink} {PreviousPageLink} {CurrentPageReport} {NextPageLink} {LastPageLink}"
+                                 widgetVar="dataTable"
+                                 style="max-width: 600px; float: left; margin: 20px;"
+                                 >
+                        <p:ajax update="@this" process="@this" event="rowSelect" listener="#{mbCasoDetalle.changeSelectedRequisito}"/>
+
+                        <p:column headerText="ID">
+                            <h:outputText value="#{item.idRequisito.nombre}"/>
+                        </p:column>
+                        <p:column headerText="LISTO" style="width: 100px;">
+                            <p:graphicImage value="#{mbCasoDetalle.comprobarListo(item)?'':''}"/>
+                        </p:column>
+
+                    </p:dataTable>
+
+
+
+                    <p:commandButton value="ENTREGADO"
+
+                                     >
+                        <p:ajax process="@this" update="@all" listener="#{mbCasoDetalle.avanzarRequisito()}"/>
+                    </p:commandButton>
+
+                  
+
+
+                </p:layoutUnit>
+            </p:layout>
+
+
+
+        </ui:define>
+
+
+    </ui:composition>
+
+
+
+</html>

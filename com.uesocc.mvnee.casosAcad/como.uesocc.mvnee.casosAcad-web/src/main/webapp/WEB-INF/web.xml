@@ -9,6 +9,20 @@
         <servlet-class>javax.faces.webapp.FacesServlet</servlet-class>
         <load-on-startup>1</load-on-startup>
     </servlet>
+    
+
+    <filter>
+       <filter-name>CORS</filter-name>
+       <filter-class>
+          com.thetransactioncompany.cors.CORSFilter
+       </filter-class>
+    </filter>
+
+    <filter-mapping>
+       <filter-name>CORS</filter-name>
+       <url-pattern>/websources/*</url-pattern>
+    </filter-mapping>
+
     <servlet-mapping>
         <servlet-name>Faces Servlet</servlet-name>
         <url-pattern>*.jsf</url-pattern>

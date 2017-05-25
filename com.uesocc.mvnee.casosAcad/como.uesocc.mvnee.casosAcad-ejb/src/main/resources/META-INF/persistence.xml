@@ -14,6 +14,7 @@
     <class>com.uesocc.entities.casosAcad.Solicitudes</class>
     <class>com.uesocc.entities.casosAcad.TipoPaso</class>
     <class>com.uesocc.entities.casosAcad.TipoRequisito</class>
+    <class>com.uesocc.facades.casosAcad.NewHire</class>
     <exclude-unlisted-classes>true</exclude-unlisted-classes>
     <properties/>
   </persistence-unit>

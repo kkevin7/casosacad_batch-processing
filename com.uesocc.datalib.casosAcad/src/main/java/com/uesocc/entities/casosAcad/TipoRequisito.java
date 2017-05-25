@@ -132,7 +132,7 @@ public class TipoRequisito implements Serializable {
 
     @Override
     public String toString() {
-        return "com.uesocc.entities.casosAcad.TipoRequisito[ idTipoRequisito=" + idTipoRequisito + " ]";
+        return String.valueOf(idTipoRequisito);
     }
     
 }

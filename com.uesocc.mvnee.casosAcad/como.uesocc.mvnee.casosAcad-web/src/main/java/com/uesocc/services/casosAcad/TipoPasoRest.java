@@ -29,6 +29,7 @@ public class TipoPasoRest  implements Serializable{
     private TipoPasoFacadeLocal ejbTipoPaso;
     
     @GET
+    
     @Produces({MediaType.APPLICATION_JSON})
     public List<TipoPaso> findall(){
         List salida= null;

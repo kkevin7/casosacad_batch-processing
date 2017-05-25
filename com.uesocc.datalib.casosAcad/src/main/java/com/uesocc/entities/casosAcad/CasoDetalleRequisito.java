@@ -35,7 +35,7 @@ import javax.xml.bind.annotation.XmlTransient;
 @XmlRootElement
 @NamedQueries({
     @NamedQuery(name = "CasoDetalleRequisito.findAll", query = "SELECT c FROM CasoDetalleRequisito c")
-    , @NamedQuery(name = "CasoDetalleRequisito.findByIdCasoDR", query = "SELECT c FROM CasoDetalleRequisito c WHERE c.idCasoDR = :idCasoDR")
+    , @NamedQuery(name = "CasoDetalleRequisito.findByIdCDR", query = "SELECT c FROM CasoDetalleRequisito c WHERE c.idCDR = :idCDR")
     , @NamedQuery(name = "CasoDetalleRequisito.findByIdPasoRequisito", query = "SELECT c FROM CasoDetalleRequisito c WHERE c.idPasoRequisito = :idPasoRequisito")
     , @NamedQuery(name = "CasoDetalleRequisito.findByEstadoRequisito", query = "SELECT c FROM CasoDetalleRequisito c WHERE c.estadoRequisito = :estadoRequisito")
     , @NamedQuery(name = "CasoDetalleRequisito.findByFecha", query = "SELECT c FROM CasoDetalleRequisito c WHERE c.fecha = :fecha")})
@@ -45,8 +45,8 @@ public class CasoDetalleRequisito implements Serializable {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Basic(optional = false)
-    @Column(name = "idCasoDR", nullable = false)
-    private Integer idCasoDR;
+    @Column(name = "idCDR", nullable = false)
+    private Integer idCDR;
     @Basic(optional = false)
     @Column(name = "idPasoRequisito", nullable = false)
     private int idPasoRequisito;
@@ -57,7 +57,7 @@ public class CasoDetalleRequisito implements Serializable {
     @Column(name = "Fecha", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fecha;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCasoDR")
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idCDR")
     private List<DbCdra> dbCdraList;
     @JoinColumn(name = "idCasoDetalle", referencedColumnName = "idCasoDetalle", nullable = false)
     @ManyToOne(optional = false)
@@ -66,23 +66,23 @@ public class CasoDetalleRequisito implements Serializable {
     public CasoDetalleRequisito() {
     }
 
-    public CasoDetalleRequisito(Integer idCasoDR) {
-        this.idCasoDR = idCasoDR;
+    public CasoDetalleRequisito(Integer idCDR) {
+        this.idCDR = idCDR;
     }
 
-    public CasoDetalleRequisito(Integer idCasoDR, int idPasoRequisito, String estadoRequisito, Date fecha) {
-        this.idCasoDR = idCasoDR;
+    public CasoDetalleRequisito(Integer idCDR, int idPasoRequisito, String estadoRequisito, Date fecha) {
+        this.idCDR = idCDR;
         this.idPasoRequisito = idPasoRequisito;
         this.estadoRequisito = estadoRequisito;
         this.fecha = fecha;
     }
 
-    public Integer getIdCasoDR() {
-        return idCasoDR;
+    public Integer getIdCDR() {
+        return idCDR;
     }
 
-    public void setIdCasoDR(Integer idCasoDR) {
-        this.idCasoDR = idCasoDR;
+    public void setIdCDR(Integer idCDR) {
+        this.idCDR = idCDR;
     }
 
     public int getIdPasoRequisito() {
@@ -129,7 +129,7 @@ public class CasoDetalleRequisito implements Serializable {
     @Override
     public int hashCode() {
         int hash = 0;
-        hash += (idCasoDR != null ? idCasoDR.hashCode() : 0);
+        hash += (idCDR != null ? idCDR.hashCode() : 0);
         return hash;
     }
 
@@ -140,7 +140,7 @@ public class CasoDetalleRequisito implements Serializable {
             return false;
         }
         CasoDetalleRequisito other = (CasoDetalleRequisito) object;
-        if ((this.idCasoDR == null && other.idCasoDR != null) || (this.idCasoDR != null && !this.idCasoDR.equals(other.idCasoDR))) {
+        if ((this.idCDR == null && other.idCDR != null) || (this.idCDR != null && !this.idCDR.equals(other.idCDR))) {
             return false;
         }
         return true;
@@ -148,7 +148,7 @@ public class CasoDetalleRequisito implements Serializable {
 
     @Override
     public String toString() {
-        return "com.uesocc.entities.casosAcad.CasoDetalleRequisito[ idCasoDR=" + idCasoDR + " ]";
+        return String.valueOf(idCDR);
     }
     
 }

@@ -22,10 +22,7 @@ import org.primefaces.model.LazyDataModel;
 import org.primefaces.model.SortOrder;
 
 
-/**
- *
- * @author kevin
- */
+
 @Named(value = "frmProcesoDetallePrime")
 @ViewScoped
 public class FrmProcesoDetallePrime implements Serializable{

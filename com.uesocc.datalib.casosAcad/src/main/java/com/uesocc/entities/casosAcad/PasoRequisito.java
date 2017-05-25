@@ -114,7 +114,7 @@ public class PasoRequisito implements Serializable {
 
     @Override
     public String toString() {
-        return "com.uesocc.entities.casosAcad.PasoRequisito[ idPasoRequisito=" + idPasoRequisito + " ]";
+        return String.valueOf(idPasoRequisito);
     }
     
 }

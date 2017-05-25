@@ -148,7 +148,9 @@ public class CasoDetalle implements Serializable {
 
     @Override
     public String toString() {
-        return "com.uesocc.entities.casosAcad.CasoDetalle[ idCasoDetalle=" + idCasoDetalle + " ]";
+        return String.valueOf(idCasoDetalle);
     }
+
+    
     
 }

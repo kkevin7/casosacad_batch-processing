@@ -9,13 +9,13 @@ import java.io.Serializable;
 import java.util.Date;
 import java.util.List;
 import javax.persistence.Basic;
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
-import javax.persistence.Lob;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.OneToMany;
@@ -38,7 +38,7 @@ import javax.xml.bind.annotation.XmlTransient;
     , @NamedQuery(name = "Solicitudes.findByCarnet", query = "SELECT s FROM Solicitudes s WHERE s.carnet = :carnet")
     , @NamedQuery(name = "Solicitudes.findByNit", query = "SELECT s FROM Solicitudes s WHERE s.nit = :nit")
     , @NamedQuery(name = "Solicitudes.findByFechaRecibida", query = "SELECT s FROM Solicitudes s WHERE s.fechaRecibida = :fechaRecibida")
-    , @NamedQuery(name = "Solicitudes.findByUsuario", query = "SELECT s FROM Solicitudes s WHERE s.usuario = :usuario")})
+    , @NamedQuery(name = "Solicitudes.findByEstado", query = "SELECT s FROM Solicitudes s WHERE s.estado = :estado")})
 public class Solicitudes implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -49,22 +49,20 @@ public class Solicitudes implements Serializable {
     private Integer idSolicitud;
     @Column(name = "carnet", length = 7)
     private String carnet;
-    @Basic(optional = false)
-    @Column(name = "NIT", nullable = false)
-    private int nit;
+    @Column(name = "NIT")
+    private Integer nit;
     @Basic(optional = false)
     @Column(name = "FechaRecibida", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date fechaRecibida;
     @Basic(optional = false)
-    @Column(name = "Usuario", nullable = false)
-    private int usuario;
-    @Basic(optional = false)
-    @Lob
-    @Column(name = "DescripcionSolicitud", nullable = false, length = 65535)
-    private String descripcionSolicitud;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "idSolicitud")
+    @Column(name = "estado", nullable = false)
+    private boolean estado;
+    @OneToMany(mappedBy = "idSolicitud")
     private List<Caso> casoList;
+    @JoinColumn(name = "idProceso", referencedColumnName = "idProceso", nullable = false)
+    @ManyToOne(optional = false)
+    private Proceso idProceso;
 
     public Solicitudes() {
     }
@@ -73,12 +71,10 @@ public class Solicitudes implements Serializable {
         this.idSolicitud = idSolicitud;
     }
 
-    public Solicitudes(Integer idSolicitud, int nit, Date fechaRecibida, int usuario, String descripcionSolicitud) {
+    public Solicitudes(Integer idSolicitud, Date fechaRecibida, boolean estado) {
         this.idSolicitud = idSolicitud;
-        this.nit = nit;
         this.fechaRecibida = fechaRecibida;
-        this.usuario = usuario;
-        this.descripcionSolicitud = descripcionSolicitud;
+        this.estado = estado;
     }
 
     public Integer getIdSolicitud() {
@@ -97,11 +93,11 @@ public class Solicitudes implements Serializable {
         this.carnet = carnet;
     }
 
-    public int getNit() {
+    public Integer getNit() {
         return nit;
     }
 
-    public void setNit(int nit) {
+    public void setNit(Integer nit) {
         this.nit = nit;
     }
 
@@ -113,20 +109,12 @@ public class Solicitudes implements Serializable {
         this.fechaRecibida = fechaRecibida;
     }
 
-    public int getUsuario() {
-        return usuario;
+    public boolean getEstado() {
+        return estado;
     }
 
-    public void setUsuario(int usuario) {
-        this.usuario = usuario;
-    }
-
-    public String getDescripcionSolicitud() {
-        return descripcionSolicitud;
-    }
-
-    public void setDescripcionSolicitud(String descripcionSolicitud) {
-        this.descripcionSolicitud = descripcionSolicitud;
+    public void setEstado(boolean estado) {
+        this.estado = estado;
     }
 
     @XmlTransient
@@ -136,6 +124,14 @@ public class Solicitudes implements Serializable {
 
     public void setCasoList(List<Caso> casoList) {
         this.casoList = casoList;
+    }
+
+    public Proceso getIdProceso() {
+        return idProceso;
+    }
+
+    public void setIdProceso(Proceso idProceso) {
+        this.idProceso = idProceso;
     }
 
     @Override
@@ -160,7 +156,7 @@ public class Solicitudes implements Serializable {
 
     @Override
     public String toString() {
-        return "com.uesocc.entities.casosAcad.Solicitudes[ idSolicitud=" + idSolicitud + " ]";
+        return String.valueOf(idSolicitud);
     }
     
 }

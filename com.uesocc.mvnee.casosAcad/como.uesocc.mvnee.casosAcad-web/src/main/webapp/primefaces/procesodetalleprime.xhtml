@@ -28,7 +28,7 @@
                                      selectionMode="single"
                                      paginatorTemplate="{CurrentPageReport} {FirstPageLink} {PreviousPageLink} {PageLinks} {NextPageLink} {LastPageLink} {RowsPerPageDropdown}"
                                      >
-                            <p:ajax update=":frm-crud" event="rowSelect" listener="#{frmPasoPrime.cambiarSeleccion}"/>
+                            <p:ajax update=":frm-crud" event="rowSelect" listener="#{frmProcesoDetallePrime.cambiarSeleccion}"/>
                             <p:column filterBy="#{item.idProcesoDetalle}" headerText="ID" class="colum-id">
                                 <f:facet name="header">
                                     <h:outputText value="ID"/>
