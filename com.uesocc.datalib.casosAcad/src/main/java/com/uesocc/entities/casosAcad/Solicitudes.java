@@ -66,11 +66,19 @@ public class Solicitudes implements Serializable {
 
     public Solicitudes() {
     }
+    
 
     public Solicitudes(Integer idSolicitud) {
         this.idSolicitud = idSolicitud;
     }
 
+    public Solicitudes( Date fechaRecibida,Proceso idProceso, String carnet) {
+        this.carnet = carnet;
+        this.fechaRecibida = fechaRecibida;
+        this.estado = false;
+        this.idProceso = idProceso;
+        this.nit = 02071312;
+    }
     public Solicitudes(Integer idSolicitud, Date fechaRecibida, boolean estado) {
         this.idSolicitud = idSolicitud;
         this.fechaRecibida = fechaRecibida;
